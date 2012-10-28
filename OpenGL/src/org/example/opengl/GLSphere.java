@@ -45,26 +45,6 @@ class GLSphere {
 0,-gold,+one,
 -gold,-one,0,
 +gold,-one,0,
-
-
-            /*// FRONT
-            -half, -half, half, half, -half, half,
-            -half, half, half, half, half, half,
-            // BACK
-            -half, -half, -half, -half, half, -half,
-            half, -half, -half, half, half, -half,
-            // LEFT
-            -half, -half, half, -half, half, half,
-            -half, -half, -half, -half, half, -half,
-            // RIGHT
-            half, -half, -half, half, half, -half,
-            half, -half, half, half, half, half,
-            // TOP
-            -half, half, half, half, half, half,
-            -half, half, -half, half, half, -half,
-            // BOTTOM
-            -half, -half, half, -half, -half, -half,
-            half, -half, half, half, -half, -half, */
       };
 
       
@@ -114,8 +94,10 @@ class GLSphere {
       
       
       gl.glTexCoordPointer(2, GL10.GL_FIXED, 0, mTextureBuffer);
-      
-      
+      gl.glColor4f(1, 1, 1, 1);
+      gl.glNormal3f(0, 0, 1);
+      gl.glDrawArrays(GL10.GL_POINTS, 0, vertices.length);
+      /*
 
       gl.glColor4f(1, 1, 1, 1);
       gl.glNormal3f(0, 0, 1);
@@ -134,6 +116,7 @@ class GLSphere {
       gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 16, 4);
       gl.glNormal3f(0, -1, 0);
       gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 20, 4);
+      */
    }
    
    
