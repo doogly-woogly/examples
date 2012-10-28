@@ -26,7 +26,15 @@ class World {
    private final IntBuffer mVertexBuffer;
    private final IntBuffer mTextureBuffer;
    
+   private final GLCube cube = new GLCube();
+   private final GLSphere sphere = new GLSphere();
+   
    private List<Node> nodes = new ArrayList<Node>();
+   
+   public void Load(GL10 gl){
+   	   GLCube.loadTexture(gl, context, R.drawable.android);
+   	   GLSphere.loadTexture(gl, context, R.drawable.android);
+   }
    
    public World() {
       
@@ -91,14 +99,15 @@ class World {
    
 
    public void draw(GL10 gl) { 
+      /*
       gl.glVertexPointer(3, GL10.GL_FIXED, 0, mVertexBuffer);
-      
-      
       gl.glTexCoordPointer(2, GL10.GL_FIXED, 0, mTextureBuffer);
       gl.glColor4f(1, 1, 1, 1);
       gl.glNormal3f(0, 0, 1);
       gl.glDrawArrays(GL10.GL_POINTS, 0, 12);
-      
+      */
+      cube.draw(gl);
+      sphere.draw(gl);
       for (Node temp : nodes) {
 	temp.draw(gl);
       }

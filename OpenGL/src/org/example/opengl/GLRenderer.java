@@ -22,8 +22,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
    private final Context context;
    
    
-   private final GLCube cube = new GLCube();
-   private final GLSphere sphere = new GLSphere();
+  private final World world = new World();
    
    private long startTime;
    private long fpsStartTime;
@@ -96,9 +95,10 @@ class GLRenderer implements GLSurfaceView.Renderer {
       gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
       gl.glEnable(GL10.GL_TEXTURE_2D);
 
+      
       // Load the cube's texture from a bitmap
-      GLCube.loadTexture(gl, context, R.drawable.android);
-      GLSphere.loadTexture(gl, context, R.drawable.android);
+      World.Load(gl);
+      
       
       
       
@@ -151,8 +151,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 
       
       // Draw the model
-      cube.draw(gl);
-      sphere.draw(gl);
+      world.draw(gl);
       
       
       
