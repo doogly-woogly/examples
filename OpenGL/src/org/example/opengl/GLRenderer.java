@@ -121,7 +121,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		gl.glMatrixMode(GL10.GL_PROJECTION);
 		gl.glLoadIdentity();
 		float mAspect = (float) width / height;
-		perspectiveM(mProjectionMatrix, (float)Math.toRadians(mFOV), mAspect, 0.1f, 2.f);
+		perspectiveM(mProjectionMatrix, (float)Math.toRadians(mFOV), mAspect, 0.1f, 200.f);
 //		Matrix.multiplyMM(mViewProjectionMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
 		gl.glLoadMatrixf(mProjectionMatrix,0);
 //		updateMatrices(gl);
@@ -158,7 +158,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		Matrix.setIdentityM(mViewMatrix, 0);
 		long elapsed = System.currentTimeMillis() - startTime;
 //		gl.glTranslatef(0, 0, 0);
-		Matrix.translateM(mViewMatrix, 0, 0, 0, 0);
+		Matrix.translateM(mViewMatrix, 0, 0, 0, -5);
 		 
 //		gl.glRotatef(elapsed * (30f / 1000f), 0, 1, 0);
 //		gl.glRotatef(elapsed * (15f / 1000f), 1, 0, 0);

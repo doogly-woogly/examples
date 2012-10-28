@@ -82,21 +82,24 @@ class World {
 	public World() {
 		for(int i=0;i<vertices.length;i+=3){
 			Node n=new Node(vertices[i],vertices[i+1],vertices[i+2]);
-			n.obj=new GLSphere();
+		//	n.obj=new GLSphere();
 			nodes.add(n);
 		}
 	}
 	
 	
 	public void draw(GL10 gl,float[] proj,float[] modl) {
-		ExtractFrustum(gl,proj,modl);
-		cube.draw(gl);
+gl.glPushMatrix();
+
+		//		ExtractFrustum(gl,proj,modl);
+//		cube.draw(gl);
 		sphere.draw(gl);
 		for (Node temp : nodes) {
-			if(PointInFrustum(temp.pos)){
+	//		if(PointInFrustum(temp.pos)){
 				temp.draw(gl);
-			}
+	//		}
 		}
+		gl.glPopMatrix();
 	}
 	
 	public void ExtractFrustum(GL10 gl,float[] proj,float[] modl){
@@ -123,7 +126,7 @@ class World {
 		clip[ 7] = modl[ 4] * proj[ 3] + modl[ 5] * proj[ 7] + modl[ 6] * proj[11] + modl[ 7] * proj[15];
 		
 		clip[ 8] = modl[ 8] * proj[ 0] + modl[ 9] * proj[ 4] + modl[10] * proj[ 8] + modl[11] * proj[12];
-		clip[ 9] = mo-dl[ 8] * proj[ 1] + modl[ 9] * proj[ 5] + modl[10] * proj[ 9] + modl[11] * proj[13];
+		clip[ 9] = modl[ 8] * proj[ 1] + modl[ 9] * proj[ 5] + modl[10] * proj[ 9] + modl[11] * proj[13];
 		clip[10] = modl[ 8] * proj[ 2] + modl[ 9] * proj[ 6] + modl[10] * proj[10] + modl[11] * proj[14];
 		clip[11] = modl[ 8] * proj[ 3] + modl[ 9] * proj[ 7] + modl[10] * proj[11] + modl[11] * proj[15];
 		
