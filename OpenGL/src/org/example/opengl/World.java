@@ -22,7 +22,7 @@ import android.opengl.GLUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import android.util.*;
+import android.opengl.Matrix;
 
 class World {
 	private final GLCube cube = new GLCube();
