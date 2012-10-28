@@ -139,9 +139,8 @@ public class OpenGL extends Activity {
 			}
 			// Create an OpenGL ES 2.0 context.
 			setEGLContextClientVersion(2);
-			if (kUseMultisampling)
-				setEGLConfigChooser(mConfigChooser = new MultisampleConfigChooser());
-			setRenderer(mRenderer = new GLRenderer());
+			if (kUseMultisampling)setEGLConfigChooser(mConfigChooser = new MultisampleConfigChooser());
+			setRenderer(mRenderer = new GLRenderer(c));
 			grav[0]=0;
 			grav[1]=0;
 			grav[2]=0;
