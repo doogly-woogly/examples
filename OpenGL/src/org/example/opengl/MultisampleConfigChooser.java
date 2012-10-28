@@ -1,4 +1,4 @@
-package com.example.gdc11;
+package org.example.opengl;
 
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;

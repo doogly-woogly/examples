@@ -17,10 +17,12 @@ import android.hardware.*;
 import android.location.*;
 import java.util.*;
 import android.content.*;
+import android.util.*;
+import android.widget.*;
 
 public class OpenGL extends Activity {
 	private MultisampleConfigChooser mConfigChooser;
-   GLView view;
+   TouchGLView view;
    @Override
    public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
@@ -139,7 +141,7 @@ public class OpenGL extends Activity {
 			setEGLContextClientVersion(2);
 			if (kUseMultisampling)
 				setEGLConfigChooser(mConfigChooser = new MultisampleConfigChooser());
-			setRenderer(mRenderer = new GDC11Renderer());
+			setRenderer(mRenderer = new GLRenderer());
 			grav[0]=0;
 			grav[1]=0;
 			grav[2]=0;
