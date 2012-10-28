@@ -22,8 +22,10 @@ class Node {
    
 
    public void draw(GL10 gl) {
+   	   gl.glPushMatrix();
    	   gl.glTranslatef(pos[0],pos[1],pos[2]);
    	   if(obj)obj.draw(gl);
+   	   gl.glPopMatrix();
    }
    
    
