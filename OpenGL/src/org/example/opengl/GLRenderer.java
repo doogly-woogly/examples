@@ -157,24 +157,20 @@ class GLRenderer implements GLSurfaceView.Renderer {
 //		gl.glLoadIdentity();
 		Matrix.setIdentityM(mViewMatrix, 0);
 		long elapsed = System.currentTimeMillis() - startTime;
-		 Matrix.translateM(mViewMatrix, 0, 0, 0, 0);
+//		gl.glTranslatef(0, 0, 0);
+		Matrix.translateM(mViewMatrix, 0, 0, 0, 0);
+		 
+//		gl.glRotatef(elapsed * (30f / 1000f), 0, 1, 0);
+//		gl.glRotatef(elapsed * (15f / 1000f), 1, 0, 0);
 		 Matrix.rotateM(mViewMatrix, 0, elapsed*(30f/1000f), 0, 1, 0);
 		 Matrix.rotateM(mViewMatrix, 0, elapsed*(15f/1000f), 1, 0, 0);
-//		gl.glTranslatef(0, 0, 0);
 		gl.glLoadMatrixf(mViewMatrix,0);
 		
 		// Other drawing commands go here...
-		
-		
-		
-		// Set rotation angle based on the time
-
-//		gl.glRotatef(elapsed * (30f / 1000f), 0, 1, 0);
-//		gl.glRotatef(elapsed * (15f / 1000f), 1, 0, 0);
-		
+	
 		
 		// Draw the model
-		world.draw(gl);
+		world.draw(gl,mProjectionMatrix,mViewMatrix);
 		
 		
 		

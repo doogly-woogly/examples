@@ -12,7 +12,7 @@ import android.opengl.GLUtils;
 import java.util.ArrayList;
 
 class Node {
-
+  public float[] pos=new float[3];
    public Node() {
    }
    

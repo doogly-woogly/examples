@@ -83,16 +83,19 @@ class World {
 	}
 	
 	
-	public void draw(GL10 gl) {
+	public void draw(GL10 gl,float[] proj,float[] modl) {
+		ExtractFrustum(gl,proj,modl);
 		//frustum culling
 		cube.draw(gl);
 		sphere.draw(gl);
 		for (Node temp : nodes) {
-			temp.draw(gl);
+			if(PointInFrustum(nodes.pos)){
+				temp.draw(gl);
+			}
 		}
 	}
 	
-	public void ExtractFrustum(GL10 gl,float proj[],float modl[]){
+	public void ExtractFrustum(GL10 gl,float[] proj,float[] modl){
 		//float   proj[]=new float[16];
 		//float   modl[]=new float[16];
 		float   clip[]=new float[16];
@@ -202,6 +205,16 @@ class World {
 		frustum[5][1] /= t;
 		frustum[5][2] /= t;
 		frustum[5][3] /= t;
+	}
+	
+	int PointInFrustum( float[] x )
+	{
+		int p;
+		
+		for( p = 0; p < 6; p++ )
+			if( frustum[p][0] * x[0] + frustum[p][1] * x[1] + frustum[p][2] * x[2] + frustum[p][3] <= 0 )
+			return false;
+		return true;
 	}
 }
 
