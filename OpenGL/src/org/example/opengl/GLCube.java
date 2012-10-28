@@ -120,8 +120,7 @@ class GLCube {
    
    
    static void loadTexture(GL10 gl, Context context, int resource) {
-      Bitmap bmp = BitmapFactory.decodeResource(
-            context.getResources(), resource);
+      Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), resource);
       GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bmp, 0);
       gl.glTexParameterx(GL10.GL_TEXTURE_2D,
             GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);

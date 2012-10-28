@@ -134,7 +134,8 @@ class GLRenderer implements GLSurfaceView.Renderer {
 
 
 
-            Matrix.multiplyMM(mViewProjectionMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);           
+            Matrix.multiplyMM(mViewProjectionMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
+            gl.glLoadMatrix(mViewProjectionMatrix);
         }
 	
 	
