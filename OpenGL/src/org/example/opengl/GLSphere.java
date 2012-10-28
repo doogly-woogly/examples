@@ -30,7 +30,7 @@ class GLSphere {
    public GLSphere() {
       
       int one = 65536;
-      int gold = one/1.61803398875;
+      int gold = (int)((double)one/1.61803398875);
       int half = one / 2;
       int vertices[] = {
 -gold,+one,0,
@@ -149,4 +149,4 @@ class GLSphere {
    }
    
 }
- a
+

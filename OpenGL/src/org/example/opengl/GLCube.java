@@ -30,7 +30,6 @@ class GLCube {
    public GLCube() {
       
       int one = 65536;
-      int gold = one/1.61803398875;
       int half = one / 2;
       int vertices[] = { 
             // FRONT
