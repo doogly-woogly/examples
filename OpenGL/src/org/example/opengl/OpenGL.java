@@ -22,11 +22,11 @@ import android.widget.*;
 
 public class OpenGL extends Activity {
 	private MultisampleConfigChooser mConfigChooser;
-   TouchGLView view;
+   GLView view;
    @Override
    public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      view = new TouchGLView(this);
+      view = new GLView(this);
       setContentView(view);
    }
 
@@ -93,7 +93,7 @@ public class OpenGL extends Activity {
 				
 				sensorMgr.registerListener(this, sensorGrav, SensorManager.SENSOR_DELAY_GAME);
 				sensorMgr.registerListener(this, sensorMag, SensorManager.SENSOR_DELAY_GAME);
-				Toast.makeText(getApplicationContext(), 'Sensors', Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "Sensors", Toast.LENGTH_SHORT).show();
 				
 				//            locationMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 				//            locationMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DISTANCE, this);
