@@ -90,7 +90,7 @@ class World {
 		}
 	}
 	
-	public void ExtractFrustum(GL10 gl,float[16] proj,float modl[16]){
+	public void ExtractFrustum(GL10 gl,float proj[16],float modl[16]){
 		//float   proj[]=new float[16];
 		//float   modl[]=new float[16];
 		float   clip[]=new float[16];
@@ -130,7 +130,7 @@ class World {
 		frustum[0][3] = clip[15] - clip[12];
 		
 		/* Normalize the result */
-		t = Math.sqrt( frustum[0][0] * frustum[0][0] + frustum[0][1] * frustum[0][1] + frustum[0][2] * frustum[0][2] );
+		t = FloatMath.sqrt( frustum[0][0] * frustum[0][0] + frustum[0][1] * frustum[0][1] + frustum[0][2] * frustum[0][2] );
 		frustum[0][0] /= t;
 		frustum[0][1] /= t;
 		frustum[0][2] /= t;
@@ -143,7 +143,7 @@ class World {
 		frustum[1][3] = clip[15] + clip[12];
 		
 		/* Normalize the result */
-		t = Math.sqrt( frustum[1][0] * frustum[1][0] + frustum[1][1] * frustum[1][1] + frustum[1][2] * frustum[1][2] );
+		t = FloatMath.sqrt( frustum[1][0] * frustum[1][0] + frustum[1][1] * frustum[1][1] + frustum[1][2] * frustum[1][2] );
 		frustum[1][0] /= t;
 		frustum[1][1] /= t;
 		frustum[1][2] /= t;
@@ -156,7 +156,7 @@ class World {
 		frustum[2][3] = clip[15] + clip[13];
 		
 		/* Normalize the result */
-		t = sqrt( frustum[2][0] * frustum[2][0] + frustum[2][1] * frustum[2][1] + frustum[2][2] * frustum[2][2] );
+		t = FloatMath.sqrt( frustum[2][0] * frustum[2][0] + frustum[2][1] * frustum[2][1] + frustum[2][2] * frustum[2][2] );
 		frustum[2][0] /= t;
 		frustum[2][1] /= t;
 		frustum[2][2] /= t;
@@ -169,7 +169,7 @@ class World {
 		frustum[3][3] = clip[15] - clip[13];
 		
 		/* Normalize the result */
-		t = sqrt( frustum[3][0] * frustum[3][0] + frustum[3][1] * frustum[3][1] + frustum[3][2] * frustum[3][2] );
+		t = FloatMath.sqrt( frustum[3][0] * frustum[3][0] + frustum[3][1] * frustum[3][1] + frustum[3][2] * frustum[3][2] );
 		frustum[3][0] /= t;
 		frustum[3][1] /= t;
 		frustum[3][2] /= t;
@@ -182,7 +182,7 @@ class World {
 		frustum[4][3] = clip[15] - clip[14];
 		
 		/* Normalize the result */
-		t = sqrt( frustum[4][0] * frustum[4][0] + frustum[4][1] * frustum[4][1] + frustum[4][2] * frustum[4][2] );
+		t = FloatMath.sqrt( frustum[4][0] * frustum[4][0] + frustum[4][1] * frustum[4][1] + frustum[4][2] * frustum[4][2] );
 		frustum[4][0] /= t;
 		frustum[4][1] /= t;
 		frustum[4][2] /= t;
@@ -195,7 +195,7 @@ class World {
 		frustum[5][3] = clip[15] + clip[14];
 		
 		/* Normalize the result */
-		t = sqrt( frustum[5][0] * frustum[5][0] + frustum[5][1] * frustum[5][1] + frustum[5][2] * frustum[5][2] );
+		t = FloatMath.sqrt( frustum[5][0] * frustum[5][0] + frustum[5][1] * frustum[5][1] + frustum[5][2] * frustum[5][2] );
 		frustum[5][0] /= t;
 		frustum[5][1] /= t;
 		frustum[5][2] /= t;
