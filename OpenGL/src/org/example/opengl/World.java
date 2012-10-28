@@ -90,17 +90,17 @@ class World {
 		}
 	}
 	
-	public void ExtractFrustum(GL10 gl){
-		float   proj[]=new float[16];
-		float   modl[]=new float[16];
+	public void ExtractFrustum(GL10 gl,float[16] proj,float modl[16]){
+		//float   proj[]=new float[16];
+		//float   modl[]=new float[16];
 		float   clip[]=new float[16];
 		float   t;
 		
 		/* Get the current PROJECTION matrix from OpenGL */
-		gl.glGetFloatv( gl.GL_PROJECTION, proj );
+		//proj=PROJECTION;
 		
 		/* Get the current MODELVIEW matrix from OpenGL */
-		gl.glGetFloatfv( gl.GL_MODELVIEW, modl );
+		//gl.glGetFloatfv( gl.GL_MODELVIEW, modl );
 		
 		/* Combine the two matrices (multiply projection by modelview) */
 		clip[ 0] = modl[ 0] * proj[ 0] + modl[ 1] * proj[ 4] + modl[ 2] * proj[ 8] + modl[ 3] * proj[12];
