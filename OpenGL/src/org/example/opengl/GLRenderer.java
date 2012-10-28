@@ -10,7 +10,7 @@
 package org.example.opengl;
 
 import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
+import javax.microedition.khronos.opengles.GL11;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
@@ -77,7 +77,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 	
 	
 	
-	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+	public void onSurfaceCreated(GL11 gl, EGLConfig config) {
 		
 		// ...
 		
@@ -96,46 +96,46 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		float lightAmbient[] = new float[] { 0.2f, 0.2f, 0.2f, 1 };
 		float lightDiffuse[] = new float[] { 1, 1, 1, 1 };
 		float[] lightPos = new float[] { 1, 1, 1, 1 };
-		gl.glEnable(GL10.GL_LIGHTING);
-		gl.glEnable(GL10.GL_LIGHT0);
-		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_AMBIENT, lightAmbient, 0);
-		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_DIFFUSE, lightDiffuse, 0);
-		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_POSITION, lightPos, 0);
+		gl.glEnable(GL11.GL_LIGHTING);
+		gl.glEnable(GL11.GL_LIGHT0);
+		gl.glLightfv(GL11.GL_LIGHT0, GL11.GL_AMBIENT, lightAmbient, 0);
+		gl.glLightfv(GL11.GL_LIGHT0, GL11.GL_DIFFUSE, lightDiffuse, 0);
+		gl.glLightfv(GL11.GL_LIGHT0, GL11.GL_POSITION, lightPos, 0);
 		
 		
 		
 		// What is the cube made of?
 		float matAmbient[] = new float[] { 1, 1, 1, 1 };
 		float matDiffuse[] = new float[] { 1, 1, 1, 1 };
-		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT,
+		gl.glMaterialfv(GL11.GL_FRONT_AND_BACK, GL11.GL_AMBIENT,
 			matAmbient, 0);
-		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE,
+		gl.glMaterialfv(GL11.GL_FRONT_AND_BACK, GL11.GL_DIFFUSE,
 			matDiffuse, 0);
 		
 		
 		
 		// Set up any OpenGL options we need
-		gl.glEnable(GL10.GL_DEPTH_TEST); 
-		gl.glDepthFunc(GL10.GL_LEQUAL);
-		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+		gl.glEnable(GL11.GL_DEPTH_TEST); 
+		gl.glDepthFunc(GL11.GL_LEQUAL);
+		gl.glEnableClientState(GL11.GL_VERTEX_ARRAY);
 		
 		// Optional: disable dither to boost performance
-		// gl.glDisable(GL10.GL_DITHER);
+		// gl.glDisable(GL11.GL_DITHER);
 		
 		
 		
 		// ...
 		if (SEE_THRU) {
-			gl.glDisable(GL10.GL_DEPTH_TEST);
-			gl.glEnable(GL10.GL_BLEND);
-			gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE);
+			gl.glDisable(GL11.GL_DEPTH_TEST);
+			gl.glEnable(GL11.GL_BLEND);
+			gl.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
 		}
 		
 		
 		// Enable textures
-		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-		gl.glEnable(GL10.GL_TEXTURE_2D);
-		gl.glDisable(GL10.GL_CULL_FACE);
+		gl.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
+		gl.glEnable(GL11.GL_TEXTURE_2D);
+		gl.glDisable(GL11.GL_CULL_FACE);
 		
 		
 		// Load the cube's texture from a bitmap
@@ -145,7 +145,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 	
 	
 	
-	public void onSurfaceChanged(GL10 gl, int width, int height) {
+	public void onSurfaceChanged(GL11 gl, int width, int height) {
 		
 		// ...
 		
@@ -153,7 +153,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		// Define the view frustum
 		Matrix.setIdentityM(mViewMatrix, 0);
 		gl.glViewport(0, 0, width, height);
-		gl.glMatrixMode(GL10.GL_PROJECTION);
+		gl.glMatrixMode(GL11.GL_PROJECTION);
 		gl.glLoadIdentity();
 		float mAspect = (float) width / height;
 		perspectiveM(mProjectionMatrix, (float)Math.toRadians(mFOV), mAspect, 0.1f, 200.f);
@@ -164,16 +164,16 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		
 	}
 	
-	private void updateMatrices(GL10 gl) {   }
+	private void updateMatrices(GL11 gl) {   }
 	
 	
 	
-	public void onDrawFrame(GL10 gl) {
+	public void onDrawFrame(GL11 gl) {
 		// Clear the screen to black
-		gl.glClear(GL10.GL_COLOR_BUFFER_BIT	| GL10.GL_DEPTH_BUFFER_BIT);
+		gl.glClear(GL11.GL_COLOR_BUFFER_BIT	| GL11.GL_DEPTH_BUFFER_BIT);
 		
 		// Position model so we can see it
-		gl.glMatrixMode(GL10.GL_MODELVIEW);
+		gl.glMatrixMode(GL11.GL_MODELVIEW);
 //		Matrix.setIdentityM(mViewMatrix, 0);
 
 //		gl.glLoadIdentity();
