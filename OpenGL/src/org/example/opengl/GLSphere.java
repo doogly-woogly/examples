@@ -36,36 +36,20 @@ class GLSphere extends Entity{
       int gold = (int)((double)one/1.61803398875);
       int half = one / 2;
       List<int> vertices = new ArrayList<int>();
-      vertices.add({-gold,+one,0,});
-      vertices.add({+gold,+one,0,});
-      vertices.add({0,+gold,-one,});
-      vertices.add({0,+gold,+one,});
-      vertices.add({-one,0,-gold,});
-      vertices.add({-one,0,+gold,});
-      vertices.add({+one,0,-gold,});
-      vertices.add({+one,0,+gold,});
-      vertices.add({0,-gold,-one,});
-      vertices.add({0,-gold,+one,});
-      vertices.add({-gold,-one,0,});
-      vertices.add({+gold,-one,0,});
+      vertices.add(new V3(-gold,+one,0));
+      vertices.add(new V3(+gold,+one,0));
+      vertices.add(new V3(0,+gold,-one));
+      vertices.add(new V3(0,+gold,+one));
+      vertices.add(new V3(-one,0,-gold));
+      vertices.add(new V3(-one,0,+gold));
+      vertices.add(new V3(+one,0,-gold));
+      vertices.add(new V3(+one,0,+gold));
+      vertices.add(new V3(0,-gold,-one));
+      vertices.add(new V3(0,-gold,+one));
+      vertices.add(new V3(-gold,-one,0));
+      vertices.add(new V3(+gold,-one,0));
 
       
-      /*
-      int texCoords[] = {
-            // FRONT
-            0, one, one, one, 0, 0, one, 0,
-            // BACK
-            one, one, one, 0, 0, one, 0, 0,
-            // LEFT
-            one, one, one, 0, 0, one, 0, 0,
-            // RIGHT
-            one, one, one, 0, 0, one, 0, 0,
-            // TOP
-            one, 0, 0, 0, one, one, 0, one,
-            // BOTTOM
-            0, 0, 0, one, one, 0, one, one, };
-      */
-
       
       // Buffers to be passed to gl*Pointer() functions must be
       // direct, i.e., they must be placed on the native heap
