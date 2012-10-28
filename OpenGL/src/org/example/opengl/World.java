@@ -32,7 +32,7 @@ class World {
    
    private List<Node> nodes = new ArrayList<Node>();
    
-   public void Load(GL10 gl){
+   public void Load(GL10 gl,Context context){
    	   GLCube.loadTexture(gl, context, R.drawable.android);
    	   GLSphere.loadTexture(gl, context, R.drawable.android);
    }
