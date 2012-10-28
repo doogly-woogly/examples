@@ -47,6 +47,27 @@ class GLSphere extends Entity{
 		vertices.add(new V3(-gold,-one,0));
 		vertices.add(new V3(+gold,-one,0));
 		
+tris.add(new T(0,1,2));
+tris.add(new T(1,0,3));
+tris.add(new T(0,2,4));
+tris.add(new T(0,4,5));
+tris.add(new T(3,0,5));
+tris.add(new T(2,1,6));
+tris.add(new T(6,1,7));
+tris.add(new T(1,3,7));
+tris.add(new T(3,5,9));
+tris.add(new T(7,3,9));
+tris.add(new T(4,2,8));
+tris.add(new T(2,6,8));
+tris.add(new T(4,8,10));
+tris.add(new T(5,4,10));
+tris.add(new T(9,5,10));
+tris.add(new T(9,10,11));
+tris.add(new T(7,9,11));
+tris.add(new T(6,7,11));
+tris.add(new T(8,6,11));
+tris.add(new T(10,8,11));
+
 		
 		ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.size()*4*3);
 		vbb.order(ByteOrder.nativeOrder());
