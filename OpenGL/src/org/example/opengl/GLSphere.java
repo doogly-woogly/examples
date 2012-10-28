@@ -33,18 +33,20 @@ class GLSphere {
       int gold = one/1.61803398875;
       int half = one / 2;
       int vertices[] = {
-0, -1, -gold,
-0, -1, +gold,
-0, +1, -gold,
-0, +1, +gold,
--1, -gold, 0,
--1, +gold, 0,
-+1, -gold, 0,
-+1, +gold, 0,
--gold, 0, -1,
--gold, 0, +1,
-+gold, 0, -1,
-+gold, 0, +1,
+-gold,+one,0,
++gold,+one,0,
+0,+gold,-one,
+0,+gold,+one,
+-one,0,-gold,
+-one,0,+gold,
++one,0,-gold,
++one,0,+gold,
+0,-gold,-one,
+0,-gold,+one,
+-gold,-one,0,
++gold,-one,0,
+
+
             /*// FRONT
             -half, -half, half, half, -half, half,
             -half, half, half, half, half, half,
