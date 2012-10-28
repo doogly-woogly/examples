@@ -113,7 +113,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
       gl.glMatrixMode(GL10.GL_PROJECTION);
       gl.glLoadIdentity();
       float ratio = (float) width / height;
-      GLU.gluPerspective(gl, 45.0f, ratio, 1, 100f); 
+      GLU.gluPerspective(gl, 45.0f, ratio, 0.1, 2f); 
       
    }
    
@@ -135,7 +135,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
       // Position model so we can see it
       gl.glMatrixMode(GL10.GL_MODELVIEW);
       gl.glLoadIdentity();
-      gl.glTranslatef(0, 0, -3.0f);
+      gl.glTranslatef(0, 0, 0);
 
       // Other drawing commands go here...
       
