@@ -97,7 +97,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 
       
       // Load the cube's texture from a bitmap
-      World.Load(gl);
+      world.Load(gl);
       
       
       

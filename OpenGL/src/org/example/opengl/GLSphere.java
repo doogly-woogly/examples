@@ -96,7 +96,7 @@ class GLSphere {
       gl.glTexCoordPointer(2, GL10.GL_FIXED, 0, mTextureBuffer);
       gl.glColor4f(1, 1, 1, 1);
       gl.glNormal3f(0, 0, 1);
-      gl.glDrawArrays(GL10.GL_POINTS, 0, vertices.length);
+      gl.glDrawArrays(GL10.GL_POINTS, 0, 12);
       /*
 
       gl.glColor4f(1, 1, 1, 1);
