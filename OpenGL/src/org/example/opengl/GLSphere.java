@@ -27,6 +27,7 @@ import android.animation.*;
 
 class GLSphere extends Entity{
 	private final FloatBuffer mVertexBuffer;
+	private final ShortBuffer mIndexBuffer
 	
 	private List<Ti> tris=new ArrayList<Ti>();
 	public GLSphere() {
@@ -79,6 +80,14 @@ tris.add(new Ti(10,8,11));
 		
 		mVertexBuffer.position(0);
 		
+		mIndexBuffer = ByteBuffer.allocateDirect(faces.length * 2*3).order(ByteOrder.nativeOrder()).asShortBuffer();
+		for(int i=0;i<faces.size();i++){
+			Ti t=faces.get(i);
+			mIndexBuffer.put(t.vs);
+		}
+		
+		mIndexBuffer.position(0);
+		
 		
 		
 		// ...
@@ -94,9 +103,11 @@ tris.add(new Ti(10,8,11));
 	public void draw(GL10 gl) {
 		gl.glPushMatrix();
 		gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+		gl.glEnableClientState(GL10.GL_INDEX_ARRAY);
 		gl.glScalef(1f,1f,1f);
 		
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
+		gl.glIndexPointer(3,GL10.GL_SHORT,0,mIndexBuffer);
 		
 		gl.glColor4f(1, 1, 1, 1);
 		gl.glNormal3f(0, 0, 1);
