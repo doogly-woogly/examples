@@ -13,7 +13,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 
-import javax.microedition.khronos.opengles.GL11;
+import javax.microedition.khronos.opengles.GL10;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -100,28 +100,28 @@ tris.add(new Ti(10,8,11));
 	}
 	
 	@Override
-	public void draw(GL11 gl) {
+	public void draw(GL10 gl) {
 		gl.glPushMatrix();
-		gl.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
-		gl.glEnableClientState(GL11.GL_INDEN_ARRAY);
+		gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+		gl.glEnableClientState(GL10.GL_INDEN_ARRAY);
 		gl.glScalef(1f,1f,1f);
 		
-		gl.glVertexPointer(3, GL11.GL_FLOAT, 0, mVertexBuffer);
-		gl.glIndexPointer(3,GL11.GL_SHORT,0,mIndexBuffer);
+		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
+		gl.glIndexPointer(3,GL10.GL_SHORT,0,mIndexBuffer);
 		
 		gl.glColor4f(1, 1, 1, 1);
 		gl.glNormal3f(0, 0, 1);
-		gl.glDrawArrays(GL11.GL_POINTS, 0, 12);
+		gl.glDrawArrays(GL10.GL_POINTS, 0, 12);
 		
 		gl.glPopMatrix();
 	}
 	
 	
-	static void loadTexture(GL11 gl, Context context, int resource) {
+	static void loadTexture(GL10 gl, Context context, int resource) {
 		Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), resource);
-		GLUtils.texImage2D(GL11.GL_TEXTURE_2D, 0, bmp, 0);
-		gl.glTexParameterx(GL11.GL_TEXTURE_2D,GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
-		gl.glTexParameterx(GL11.GL_TEXTURE_2D,GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
+		GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bmp, 0);
+		gl.glTexParameterx(GL10.GL_TEXTURE_2D,GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
+		gl.glTexParameterx(GL10.GL_TEXTURE_2D,GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
 		bmp.recycle();
 	}
 	

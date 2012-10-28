@@ -13,7 +13,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 
-import javax.microedition.khronos.opengles.GL11;
+import javax.microedition.khronos.opengles.GL10;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -93,40 +93,40 @@ class GLCube extends Entity {
    }
    
   @Override
-   public void draw(GL11 gl) { 
-	   gl.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
-      gl.glVertexPointer(3, GL11.GL_FIXED, 0, mVertexBuffer);
-      gl.glTexCoordPointer(2, GL11.GL_FIXED, 0, mTextureBuffer);
+   public void draw(GL10 gl) { 
+	   gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+      gl.glVertexPointer(3, GL10.GL_FIXED, 0, mVertexBuffer);
+      gl.glTexCoordPointer(2, GL10.GL_FIXED, 0, mTextureBuffer);
       
 	   
 
       gl.glColor4f(1, 1, 1, 1);
       gl.glNormal3f(0, 0, 1);
-      gl.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 0, 4);
+      gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);
       gl.glNormal3f(0, 0, -1);
-      gl.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 4, 4);
+      gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 4, 4);
 
       gl.glColor4f(1, 1, 1, 1);
       gl.glNormal3f(-1, 0, 0);
-      gl.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 8, 4);
+      gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 8, 4);
       gl.glNormal3f(1, 0, 0);
-      gl.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 12, 4);
+      gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 12, 4);
 
       gl.glColor4f(1, 1, 1, 1);
       gl.glNormal3f(0, 1, 0);
-      gl.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 16, 4);
+      gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 16, 4);
       gl.glNormal3f(0, -1, 0);
-      gl.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 20, 4);
+      gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 20, 4);
    }
    
    
-   static void loadTexture(GL11 gl, Context context, int resource) {
+   static void loadTexture(GL10 gl, Context context, int resource) {
       Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), resource);
-      GLUtils.texImage2D(GL11.GL_TEXTURE_2D, 0, bmp, 0);
-      gl.glTexParameterx(GL11.GL_TEXTURE_2D,
-            GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
-      gl.glTexParameterx(GL11.GL_TEXTURE_2D,
-            GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
+      GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bmp, 0);
+      gl.glTexParameterx(GL10.GL_TEXTURE_2D,
+            GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
+      gl.glTexParameterx(GL10.GL_TEXTURE_2D,
+            GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
       bmp.recycle();
    }
    
