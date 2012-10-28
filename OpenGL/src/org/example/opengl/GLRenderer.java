@@ -120,12 +120,12 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		gl.glLoadIdentity();
 		float ratio = (float) width / height;
 		perspectiveM(mProjectionMatrix, (float)Math.toRadians(mFOV), mAspect, 0.5f, 5.f);
-		updateMatrices();
+		updateMatrices(gl);
 		//GLU.gluPerspective(gl, 45.0f, ratio, 0.1, 2f); 
 		
 	}
 	
-	private void updateMatrices() {
+	private void updateMatrices(GL10 gl) {
 
  /*           Matrix.setIdentityM(mViewMatrix, 0);
             Matrix.translateM(mViewMatrix, 0, 0, 0, -mZ);
