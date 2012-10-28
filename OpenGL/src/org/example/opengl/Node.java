@@ -17,7 +17,7 @@ class Node {
    }
    
 
-   public void draw(GL10 gl) { 
+   public void draw(GL10 gl) {
    }
    
    
