@@ -11,6 +11,8 @@ import android.opengl.GLUtils;
 
 import java.util.ArrayList;
 
+import android.widget.Toast;
+
 class Node {
   public float[] pos=new float[3];
   public Entity obj=new GLSphere();
@@ -22,6 +24,8 @@ class Node {
    
 
    public void draw(GL10 gl) {
+   	     Toast toast=Toast.makeText(this, "All hail King Julien", Toast.LENGTH_LONG);  
+            toast.show();  
    	   gl.glPushMatrix();
    	   gl.glTranslatef(pos[0],pos[1],pos[2]);
 	   gl.glScalef(0.1f,0.1f,0.1f);
