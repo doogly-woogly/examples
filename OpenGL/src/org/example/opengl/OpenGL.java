@@ -11,6 +11,12 @@ package org.example.opengl;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.opengl.*;
+import android.view.*;
+import android.hardware.*;
+import android.location.*;
+import java.util.*;
+import android.content.*;
 
 public class OpenGL extends Activity {
    GLView view;
@@ -62,6 +68,8 @@ public class OpenGL extends Activity {
 		private static final int MIN_DISTANCE = 10;
 		
 		private GeomagneticField gmf;
+
+		private static final boolean kUseMultisampling = false;
 		TouchGLView(Context c) {
 			super(c);
 			// Use Android's built-in gesture detectors to detect
