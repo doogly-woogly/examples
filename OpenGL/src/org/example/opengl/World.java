@@ -31,12 +31,12 @@ class World {
 	private float frustum[][]=new float[6][4];
 	
 	private List<Node> nodes = new ArrayList<Node>();
-	int one = 65536;
-	int gold = (int)((double)one/1.61803398875);
-	int half = one / 2;
+	float one = 1f;
+	float gold = (float)((double)one/1.61803398875);
+	float half = one / 2;
 	
 	
-	private int vertices[] = {
+	private float vertices[] = {
 		-gold,+one,0,
 		+gold,+one,0,
 		0,+gold,-one,
@@ -82,22 +82,24 @@ class World {
 	public World() {
 		for(int i=0;i<vertices.length;i+=3){
 			Node n=new Node(vertices[i],vertices[i+1],vertices[i+2]);
-		//	n.obj=new GLSphere();
+			n.obj=new GLCube();
 			nodes.add(n);
 		}
+		Node n=new Node(0,0,1f);
+		nodes.add(n);
 	}
 	
 	
 	public void draw(GL10 gl,float[] proj,float[] modl) {
 gl.glPushMatrix();
 
-		//		ExtractFrustum(gl,proj,modl);
+		ExtractFrustum(gl,proj,modl);
 //		cube.draw(gl);
 		sphere.draw(gl);
 		for (Node temp : nodes) {
-	//		if(PointInFrustum(temp.pos)){
+			if(PointInFrustum(temp.pos)){
 				temp.draw(gl);
-	//		}
+			}
 		}
 		gl.glPopMatrix();
 	}

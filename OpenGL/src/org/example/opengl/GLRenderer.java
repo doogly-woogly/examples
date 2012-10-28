@@ -129,26 +129,13 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		
 	}
 	
-	private void updateMatrices(GL10 gl) {
-
-
-
-
-
-        }
+	private void updateMatrices(GL10 gl) {   }
 	
 	
 	
-	public void onDrawFrame(GL10 gl) {
-		
-		// ...
-		
-		
-		
-		
+	public void onDrawFrame(GL10 gl) {		
 		// Clear the screen to black
-		gl.glClear(GL10.GL_COLOR_BUFFER_BIT
-			| GL10.GL_DEPTH_BUFFER_BIT);
+		gl.glClear(GL10.GL_COLOR_BUFFER_BIT	| GL10.GL_DEPTH_BUFFER_BIT);
 		
 		// Position model so we can see it
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
@@ -158,7 +145,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		Matrix.setIdentityM(mViewMatrix, 0);
 		long elapsed = System.currentTimeMillis() - startTime;
 //		gl.glTranslatef(0, 0, 0);
-		Matrix.translateM(mViewMatrix, 0, 0, 0, -5);
+		Matrix.translateM(mViewMatrix, 0, 0, 0, 0);
 		 
 //		gl.glRotatef(elapsed * (30f / 1000f), 0, 1, 0);
 //		gl.glRotatef(elapsed * (15f / 1000f), 1, 0, 0);

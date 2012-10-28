@@ -89,7 +89,9 @@ class GLSphere extends Entity{
    }
    
 @Override
-   public void draw(GL10 gl) { 
+   public void draw(GL10 gl) {
+	   gl.glPushMatrix();
+	   gl.glScalef(1f,1f,1f);
       gl.glVertexPointer(3, GL10.GL_FIXED, 0, mVertexBuffer);
       
       
@@ -97,6 +99,7 @@ class GLSphere extends Entity{
       gl.glColor4f(1, 1, 1, 1);
       gl.glNormal3f(0, 0, 1);
       gl.glDrawArrays(GL10.GL_POINTS, 0, 12);
+	  gl.glPopMatrix();
       /*
 
       gl.glColor4f(1, 1, 1, 1);
