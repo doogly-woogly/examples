@@ -28,7 +28,7 @@ import android.animation.*;
 class GLSphere extends Entity{
 	private final FloatBuffer mVertexBuffer;
 	
-	private List<T> tris=new ArrayList<T>();
+	private List<Ti> tris=new ArrayList<Ti>();
 	public GLSphere() {
 		float one = 1;
 		float gold = (float)((double)one/1.61803398875);
