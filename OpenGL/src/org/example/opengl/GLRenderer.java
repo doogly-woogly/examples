@@ -52,7 +52,28 @@ class GLRenderer implements GLSurfaceView.Renderer {
 
 	public void orientate(float[] rotation)
 	{
-		// TODO: Implement this method
+			mViewMatrix[0]=m[0];
+			mViewMatrix[1]=m[1];
+			mViewMatrix[2]=m[2];
+			mViewMatrix[3]=m[3];
+			
+			mViewMatrix[4]=m[4];
+			mViewMatrix[5]=m[5];
+			mViewMatrix[6]=m[6];
+			mViewMatrix[7]=m[7];
+			
+			mViewMatrix[8]=m[8];
+			mViewMatrix[9]=m[9];
+			mViewMatrix[10]=m[10];
+			mViewMatrix[11]=m[11];
+			
+			mViewMatrix[12]=m[12];
+			mViewMatrix[13]=m[13];
+			mViewMatrix[14]=m[14];
+			mViewMatrix[15]=m[15];
+			
+		//	updateMatrices();
+		}
 	}
 	
 	
