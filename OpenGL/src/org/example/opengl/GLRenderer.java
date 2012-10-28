@@ -100,6 +100,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		// Enable textures
 		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 		gl.glEnable(GL10.GL_TEXTURE_2D);
+		gl.glDisable(GL10.GL_CULL_FACE);
 		
 		
 		// Load the cube's texture from a bitmap
@@ -119,24 +120,21 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		gl.glViewport(0, 0, width, height);
 		gl.glMatrixMode(GL10.GL_PROJECTION);
 		gl.glLoadIdentity();
-		float ratio = (float) width / height;
-		perspectiveM(mProjectionMatrix, (float)Math.toRadians(mFOV), mAspect, 0.5f, 5.f);
-		updateMatrices(gl);
-		//GLU.gluPerspective(gl, 45.0f, ratio, 0.1, 2f); 
+		float mAspect = (float) width / height;
+		perspectiveM(mProjectionMatrix, (float)Math.toRadians(mFOV), mAspect, 0.1f, 2.f);
+//		Matrix.multiplyMM(mViewProjectionMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
+		gl.glLoadMatrixf(mProjectionMatrix,0);
+//		updateMatrices(gl);
+//		GLU.gluPerspective(gl, 45.0f, mAspect, 0.1f, 2f); 
 		
 	}
 	
 	private void updateMatrices(GL10 gl) {
 
- /*           Matrix.setIdentityM(mViewMatrix, 0);
-            Matrix.translateM(mViewMatrix, 0, 0, 0, -mZ);
-            Matrix.rotateM(mViewMatrix, 0, mPhi, 0, 1, 0);
-            Matrix.rotateM(mViewMatrix, 0, -90, 1, 0, 0);*/
 
 
 
-            Matrix.multiplyMM(mViewProjectionMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
-            gl.glLoadMatrixf(mViewProjectionMatrix,16);
+
         }
 	
 	
@@ -154,16 +152,25 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		
 		// Position model so we can see it
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
-		gl.glLoadIdentity();
-		gl.glTranslatef(0, 0, 0);
+		Matrix.setIdentityM(mViewMatrix, 0);
+
+//		gl.glLoadIdentity();
+		Matrix.setIdentityM(mViewMatrix, 0);
+		long elapsed = System.currentTimeMillis() - startTime;
+		 Matrix.translateM(mViewMatrix, 0, 0, 0, 0);
+		 Matrix.rotateM(mViewMatrix, 0, elapsed*(30f/1000f), 0, 1, 0);
+		 Matrix.rotateM(mViewMatrix, 0, elapsed*(15f/1000f), 1, 0, 0);
+//		gl.glTranslatef(0, 0, 0);
+		gl.glLoadMatrixf(mViewMatrix,0);
 		
 		// Other drawing commands go here...
 		
 		
+		
 		// Set rotation angle based on the time
-		long elapsed = System.currentTimeMillis() - startTime;
-		gl.glRotatef(elapsed * (30f / 1000f), 0, 1, 0);
-		gl.glRotatef(elapsed * (15f / 1000f), 1, 0, 0);
+
+//		gl.glRotatef(elapsed * (30f / 1000f), 0, 1, 0);
+//		gl.glRotatef(elapsed * (15f / 1000f), 1, 0, 0);
 		
 		
 		// Draw the model
