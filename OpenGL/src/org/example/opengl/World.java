@@ -22,6 +22,7 @@ import android.opengl.GLUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.util.*;
 
 class World {
 	private final GLCube cube = new GLCube();
@@ -90,7 +91,7 @@ class World {
 		}
 	}
 	
-	public void ExtractFrustum(GL10 gl,float proj[16],float modl[16]){
+	public void ExtractFrustum(GL10 gl,float proj[],float modl[]){
 		//float   proj[]=new float[16];
 		//float   modl[]=new float[16];
 		float   clip[]=new float[16];
