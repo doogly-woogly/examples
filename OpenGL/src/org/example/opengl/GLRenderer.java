@@ -16,7 +16,7 @@ import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 import android.util.Log;
-import android.graphics.*;
+import android.opengl.Matrix;
 
 class GLRenderer implements GLSurfaceView.Renderer {
 	private static final String TAG = "GLRenderer";
