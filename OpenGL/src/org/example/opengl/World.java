@@ -26,6 +26,7 @@ import java.util.List;
 class World {
 	private final GLCube cube = new GLCube();
 	private final GLSphere sphere = new GLSphere();
+	private float frustum[6][4];
 	
 	private List<Node> nodes = new ArrayList<Node>();
 	int one = 65536;
