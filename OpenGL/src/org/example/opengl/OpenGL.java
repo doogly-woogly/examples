@@ -19,11 +19,12 @@ import java.util.*;
 import android.content.*;
 
 public class OpenGL extends Activity {
+	private MultisampleConfigChooser mConfigChooser;
    GLView view;
    @Override
    public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      view = new GLView(this);
+      view = new TouchGLView(this);
       setContentView(view);
    }
 
@@ -45,7 +46,7 @@ public class OpenGL extends Activity {
 	implements GestureDetector.OnGestureListener,
 	ScaleGestureDetector.OnScaleGestureListener,
 	SensorEventListener , LocationListener {
-		private GDC11Renderer mRenderer;
+		private GLRenderer mRenderer;
 		private GestureDetector mTapDetector;
 		private ScaleGestureDetector mScaleDetector;
 		private float mLastSpan = 0;
