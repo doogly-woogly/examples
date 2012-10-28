@@ -93,6 +93,7 @@ public class OpenGL extends Activity {
 				
 				sensorMgr.registerListener(this, sensorGrav, SensorManager.SENSOR_DELAY_GAME);
 				sensorMgr.registerListener(this, sensorMag, SensorManager.SENSOR_DELAY_GAME);
+				Toast.makeText(getApplicationContext(), 'Sensors', Toast.LENGTH_SHORT).show();
 				
 				//            locationMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 				//            locationMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DISTANCE, this);
