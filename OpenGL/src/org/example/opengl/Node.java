@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 class Node {
   public float[] pos=new float[3];
+  public Entity obj=new Entity();
    public Node() {
    }
    

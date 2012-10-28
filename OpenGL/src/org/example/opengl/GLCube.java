@@ -20,7 +20,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLUtils;
 
-class GLCube {
+class GLCube extends Entity {
    private final IntBuffer mVertexBuffer;
    
    
@@ -92,7 +92,7 @@ class GLCube {
       
    }
    
-
+  @override
    public void draw(GL10 gl) { 
       gl.glVertexPointer(3, GL10.GL_FIXED, 0, mVertexBuffer);
       gl.glTexCoordPointer(2, GL10.GL_FIXED, 0, mTextureBuffer);
