@@ -51,7 +51,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 	}
 
 	public void orientate(float[] m)
-	{/*
+	{
 			mViewMatrix[0]=m[0];
 			mViewMatrix[1]=m[1];
 			mViewMatrix[2]=m[2];
@@ -71,7 +71,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 			mViewMatrix[13]=m[13];
 			mViewMatrix[14]=m[14];
 			mViewMatrix[15]=m[15];
-			*/
+			
 		//	updateMatrices();
 	}
 	
@@ -177,15 +177,15 @@ class GLRenderer implements GLSurfaceView.Renderer {
 //		Matrix.setIdentityM(mViewMatrix, 0);
 
 //		gl.glLoadIdentity();
-		Matrix.setIdentityM(mViewMatrix, 0);
-		long elapsed = System.currentTimeMillis() - startTime;
+//		Matrix.setIdentityM(mViewMatrix, 0);
+//		long elapsed = System.currentTimeMillis() - startTime;
 //		gl.glTranslatef(0, 0, 0);
-		Matrix.translateM(mViewMatrix, 0, 0, 0, -5);
+//		Matrix.translateM(mViewMatrix, 0, 0, 0, -5);
 		 
 //		gl.glRotatef(elapsed * (30f / 1000f), 0, 1, 0);
 //		gl.glRotatef(elapsed * (15f / 1000f), 1, 0, 0);
-		 Matrix.rotateM(mViewMatrix, 0, elapsed*(30f/1000f), 0, 1, 0);
-		 Matrix.rotateM(mViewMatrix, 0, elapsed*(15f/1000f), 1, 0, 0);
+//		 Matrix.rotateM(mViewMatrix, 0, elapsed*(30f/1000f), 0, 1, 0);
+//		 Matrix.rotateM(mViewMatrix, 0, elapsed*(15f/1000f), 1, 0, 0);
 		gl.glLoadMatrixf(mViewMatrix,0);
 		
 		// Other drawing commands go here...

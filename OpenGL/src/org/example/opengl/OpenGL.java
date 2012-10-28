@@ -22,11 +22,11 @@ import android.widget.*;
 
 public class OpenGL extends Activity {
 	private MultisampleConfigChooser mConfigChooser;
-   GLView view;
+   TouchGLView view;
    @Override
    public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      view = new GLView(this);
+      view = new TouchGLView(this);
       setContentView(view);
    }
 
@@ -139,8 +139,8 @@ public class OpenGL extends Activity {
 				}
 			}
 			// Create an OpenGL ES 2.0 context.
-			setEGLContextClientVersion(2);
-			if (kUseMultisampling)setEGLConfigChooser(mConfigChooser = new MultisampleConfigChooser());
+//			setEGLContextClientVersion(2);
+//			if (kUseMultisampling)setEGLConfigChooser(mConfigChooser = new MultisampleConfigChooser());
 			setRenderer(mRenderer = new GLRenderer(c));
 			grav[0]=0;
 			grav[1]=0;
