@@ -85,23 +85,17 @@ class World {
 			n.obj=new GLCube();
 			nodes.add(n);
 		}
-		Node n=new Node(0,0,1f);
-		nodes.add(n);
 	}
 	
 	
-	public void draw(GL10 gl,float[] proj,float[] modl) {
-gl.glPushMatrix();
-
+	public void draw(GL10 gl,float[] proj,float[] modl) {		
 		ExtractFrustum(gl,proj,modl);
-//		cube.draw(gl);
 		sphere.draw(gl);
 		for (Node temp : nodes) {
 			if(PointInFrustum(temp.pos,1)){
 				temp.draw(gl);
 			}
 		}
-		gl.glPopMatrix();
 	}
 	
 	public void ExtractFrustum(GL10 gl,float[] proj,float[] modl){

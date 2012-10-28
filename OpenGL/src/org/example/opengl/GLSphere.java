@@ -20,6 +20,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class GLSphere extends Entity{
    private final IntBuffer mVertexBuffer;
    
@@ -32,23 +35,22 @@ class GLSphere extends Entity{
       int one = 65536;
       int gold = (int)((double)one/1.61803398875);
       int half = one / 2;
-      int vertices[] = {
--gold,+one,0,
-+gold,+one,0,
-0,+gold,-one,
-0,+gold,+one,
--one,0,-gold,
--one,0,+gold,
-+one,0,-gold,
-+one,0,+gold,
-0,-gold,-one,
-0,-gold,+one,
--gold,-one,0,
-+gold,-one,0,
-      };
+      List<int> vertices = new ArrayList<int>();
+      vertices.add({-gold,+one,0,});
+      vertices.add({+gold,+one,0,});
+      vertices.add({0,+gold,-one,});
+      vertices.add({0,+gold,+one,});
+      vertices.add({-one,0,-gold,});
+      vertices.add({-one,0,+gold,});
+      vertices.add({+one,0,-gold,});
+      vertices.add({+one,0,+gold,});
+      vertices.add({0,-gold,-one,});
+      vertices.add({0,-gold,+one,});
+      vertices.add({-gold,-one,0,});
+      vertices.add({+gold,-one,0,});
 
       
-      
+      /*
       int texCoords[] = {
             // FRONT
             0, one, one, one, 0, 0, one, 0,
@@ -62,7 +64,7 @@ class GLSphere extends Entity{
             one, 0, 0, 0, one, one, 0, one,
             // BOTTOM
             0, 0, 0, one, one, 0, one, one, };
-      
+      */
 
       
       // Buffers to be passed to gl*Pointer() functions must be
@@ -71,20 +73,23 @@ class GLSphere extends Entity{
       //
       // Buffers with multi-byte data types (e.g., short, int,
       // float) must have their byte order set to native order
-      ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.length * 4);
+      ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.size() * 4);
       vbb.order(ByteOrder.nativeOrder());
       mVertexBuffer = vbb.asIntBuffer();
-      mVertexBuffer.put(vertices);
+      for(int i=0;i<vertices.size();i++){
+      	      mVertexBuffer.put(vertices.get(i));
+      }
+      
       mVertexBuffer.position(0);
       
-
+      
       
       // ...
-      ByteBuffer tbb = ByteBuffer.allocateDirect(texCoords.length * 4);
-      tbb.order(ByteOrder.nativeOrder());
-      mTextureBuffer = tbb.asIntBuffer();
-      mTextureBuffer.put(texCoords);
-      mTextureBuffer.position(0);
+      //ByteBuffer tbb = ByteBuffer.allocateDirect(texCoords.length * 4);
+      //tbb.order(ByteOrder.nativeOrder());
+      //mTextureBuffer = tbb.asIntBuffer();
+      //mTextureBuffer.put(texCoords);
+      //mTextureBuffer.position(0);
       
    }
    
@@ -95,7 +100,7 @@ class GLSphere extends Entity{
       gl.glVertexPointer(3, GL10.GL_FIXED, 0, mVertexBuffer);
       
       
-      gl.glTexCoordPointer(2, GL10.GL_FIXED, 0, mTextureBuffer);
+      //gl.glTexCoordPointer(2, GL10.GL_FIXED, 0, mTextureBuffer);
       gl.glColor4f(1, 1, 1, 1);
       gl.glNormal3f(0, 0, 1);
       gl.glDrawArrays(GL10.GL_POINTS, 0, 12);

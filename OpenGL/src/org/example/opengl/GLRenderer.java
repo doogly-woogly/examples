@@ -145,7 +145,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		Matrix.setIdentityM(mViewMatrix, 0);
 		long elapsed = System.currentTimeMillis() - startTime;
 //		gl.glTranslatef(0, 0, 0);
-		Matrix.translateM(mViewMatrix, 0, 0, 0, 0);
+		Matrix.translateM(mViewMatrix, 0, 0, 0, -5);
 		 
 //		gl.glRotatef(elapsed * (30f / 1000f), 0, 1, 0);
 //		gl.glRotatef(elapsed * (15f / 1000f), 1, 0, 0);
