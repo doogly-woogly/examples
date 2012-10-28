@@ -115,6 +115,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		
 		
 		// Define the view frustum
+		Matrix.setIdentityM(mViewMatrix, 0);
 		gl.glViewport(0, 0, width, height);
 		gl.glMatrixMode(GL10.GL_PROJECTION);
 		gl.glLoadIdentity();
