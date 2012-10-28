@@ -89,7 +89,7 @@ class World {
 		cube.draw(gl);
 		sphere.draw(gl);
 		for (Node temp : nodes) {
-			if(PointInFrustum(nodes.pos)){
+			if(PointInFrustum(temp.pos)){
 				temp.draw(gl);
 			}
 		}
@@ -207,7 +207,7 @@ class World {
 		frustum[5][3] /= t;
 	}
 	
-	int PointInFrustum( float[] x )
+	boolean PointInFrustum( float[] x )
 	{
 		int p;
 		
