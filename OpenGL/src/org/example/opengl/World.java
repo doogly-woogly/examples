@@ -80,12 +80,14 @@ class World {
 	}
 	
 	public World() {
+		for(int i=0;i<vertices.length;i+=3){
+			nodes.add(new Node(vertices[i],vertices[i+1],vertices[i+2]));
+		}
 	}
 	
 	
 	public void draw(GL10 gl,float[] proj,float[] modl) {
 		ExtractFrustum(gl,proj,modl);
-		//frustum culling
 		cube.draw(gl);
 		sphere.draw(gl);
 		for (Node temp : nodes) {

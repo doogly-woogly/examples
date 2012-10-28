@@ -14,7 +14,10 @@ import java.util.ArrayList;
 class Node {
   public float[] pos=new float[3];
   public Entity obj=new Entity();
-   public Node() {
+   public Node(float x,float y,float z) {
+   	   pos[0]=x;
+   	   pos[1]=y;
+   	   pos[2]=z;
    }
    
 
