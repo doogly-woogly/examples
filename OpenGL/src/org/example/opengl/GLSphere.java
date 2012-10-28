@@ -27,7 +27,7 @@ class GLSphere extends Entity{
    private final IntBuffer mVertexBuffer;
    
    
-   private final IntBuffer mTextureBuffer;
+//   private final IntBuffer mTextureBuffer;
 
    
    public GLSphere() {
@@ -35,7 +35,7 @@ class GLSphere extends Entity{
       int one = 65536;
       int gold = (int)((double)one/1.61803398875);
       int half = one / 2;
-      List<int> vertices = new ArrayList<int>();
+      List<V3> vertices = new ArrayList<V3>();
       vertices.add(new V3(-gold,+one,0));
       vertices.add(new V3(+gold,+one,0));
       vertices.add(new V3(0,+gold,-one));
