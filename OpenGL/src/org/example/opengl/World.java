@@ -97,7 +97,7 @@ gl.glPushMatrix();
 //		cube.draw(gl);
 		sphere.draw(gl);
 		for (Node temp : nodes) {
-			if(PointInFrustum(temp.pos)){
+			if(PointInFrustum(temp.pos,1)){
 				temp.draw(gl);
 			}
 		}
@@ -216,12 +216,12 @@ gl.glPushMatrix();
 		frustum[5][3] /= t;
 	}
 	
-	boolean PointInFrustum( float[] x )
+	boolean PointInFrustum( float[] x,float radius )
 	{
 		int p;
 		
 		for( p = 0; p < 6; p++ )
-			if( frustum[p][0] * x[0] + frustum[p][1] * x[1] + frustum[p][2] * x[2] + frustum[p][3] <= 0 )
+			if( frustum[p][0] * x[0] + frustum[p][1] * x[1] + frustum[p][2] * x[2] + frustum[p][3] <-radius )
 			return false;
 		return true;
 	}
