@@ -39,6 +39,21 @@ class GLRenderer implements GLSurfaceView.Renderer {
 	GLRenderer(Context context) {
 		this.context = context;
 	}
+
+	public void drag(float dx, float dy)
+	{
+		// TODO: Implement this method
+	}
+
+	public void zoom(float amount)
+	{
+		// TODO: Implement this method
+	}
+
+	public void orientate(float[] rotation)
+	{
+		// TODO: Implement this method
+	}
 	
 	
 	
