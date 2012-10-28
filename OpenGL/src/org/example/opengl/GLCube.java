@@ -94,10 +94,11 @@ class GLCube extends Entity {
    
   @Override
    public void draw(GL10 gl) { 
+	   gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
       gl.glVertexPointer(3, GL10.GL_FIXED, 0, mVertexBuffer);
       gl.glTexCoordPointer(2, GL10.GL_FIXED, 0, mTextureBuffer);
       
-      
+	   
 
       gl.glColor4f(1, 1, 1, 1);
       gl.glNormal3f(0, 0, 1);

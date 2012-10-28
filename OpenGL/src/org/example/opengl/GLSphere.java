@@ -22,9 +22,11 @@ import android.opengl.GLUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.*;
+import android.animation.*;
 
 class GLSphere extends Entity{
-   private final IntBuffer mVertexBuffer;
+   private final FloatBuffer mVertexBuffer;
    
    
 //   private final IntBuffer mTextureBuffer;
@@ -32,9 +34,9 @@ class GLSphere extends Entity{
    
    public GLSphere() {
       
-      int one = 65536;
-      int gold = (int)((double)one/1.61803398875);
-      int half = one / 2;
+      float one = 1;
+      float gold = (float)((double)one/1.61803398875);
+      float half = one / 2;
       List<V3> vertices = new ArrayList<V3>();
       vertices.add(new V3(-gold,+one,0));
       vertices.add(new V3(+gold,+one,0));
@@ -57,11 +59,12 @@ class GLSphere extends Entity{
       //
       // Buffers with multi-byte data types (e.g., short, int,
       // float) must have their byte order set to native order
-      ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.size() * 4);
+      ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.size()*4*3);
       vbb.order(ByteOrder.nativeOrder());
-      mVertexBuffer = vbb.asIntBuffer();
+      mVertexBuffer = vbb.asFloatBuffer();
       for(int i=0;i<vertices.size();i++){
-      	      mVertexBuffer.put(vertices.get(i));
+		  V3 v=vertices.get(i);
+      	  mVertexBuffer.put(new float[]{v.x,v.y,v.z});
       }
       
       mVertexBuffer.position(0);
@@ -79,36 +82,23 @@ class GLSphere extends Entity{
    
 @Override
    public void draw(GL10 gl) {
+//	   if(true)return;
 	   gl.glPushMatrix();
 	   gl.glScalef(1f,1f,1f);
-      gl.glVertexPointer(3, GL10.GL_FIXED, 0, mVertexBuffer);
+	   gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+      gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
       
       
       //gl.glTexCoordPointer(2, GL10.GL_FIXED, 0, mTextureBuffer);
       gl.glColor4f(1, 1, 1, 1);
       gl.glNormal3f(0, 0, 1);
+	//  gl.glEnableClientState(gl.GL_VERTEX_ARRAY);
       gl.glDrawArrays(GL10.GL_POINTS, 0, 12);
+
+	//   gl.glDisableClientState(gl.GL_VERTEX_ARRAY);
+	   
 	  gl.glPopMatrix();
-      /*
-
-      gl.glColor4f(1, 1, 1, 1);
-      gl.glNormal3f(0, 0, 1);
-      gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);
-      gl.glNormal3f(0, 0, -1);
-      gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 4, 4);
-
-      gl.glColor4f(1, 1, 1, 1);
-      gl.glNormal3f(-1, 0, 0);
-      gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 8, 4);
-      gl.glNormal3f(1, 0, 0);
-      gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 12, 4);
-
-      gl.glColor4f(1, 1, 1, 1);
-      gl.glNormal3f(0, 1, 0);
-      gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 16, 4);
-      gl.glNormal3f(0, -1, 0);
-      gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 20, 4);
-      */
+      
    }
    
    
