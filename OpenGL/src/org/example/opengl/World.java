@@ -31,6 +31,10 @@ class World {
 	private final GLSphere sphere = new GLSphere();
 	
 	private List<Node> nodes = new ArrayList<Node>();
+	int one = 65536;
+	int gold = (int)((double)one/1.61803398875);
+	int half = one / 2;
+
 	
 	private int vertices[] = {
 		-gold,+one,0,
@@ -116,7 +120,7 @@ class World {
 	10,
 	8,
 	11,
-}
+};
 	
 	public void Load(GL10 gl,Context context){
 		GLCube.loadTexture(gl, context, R.drawable.android);
@@ -124,10 +128,6 @@ class World {
 	}
 	
 	public World() {
-		
-		int one = 65536;
-		int gold = (int)((double)one/1.61803398875);
-		int half = one / 2;
 		
 		
 		
