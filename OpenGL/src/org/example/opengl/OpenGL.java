@@ -63,7 +63,7 @@ public class OpenGL extends Activity {
 		
 		private Location currentLocation;
 		
-		private static final int avg=3;
+		private static final int avg=7;
 		private int iavg=0;
 		private static final float grav[][] = new float[avg][3]; //Gravity (a.k.a accelerometer data)
 		private static final float mag[][] = new float[avg][3]; //Magnetic 

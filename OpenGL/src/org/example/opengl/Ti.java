@@ -1,4 +1,5 @@
 package org.example.opengl;
+import java.util.*;
 
 class Ti {
 	public short[] vs=new short[3];

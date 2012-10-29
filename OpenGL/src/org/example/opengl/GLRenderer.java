@@ -17,6 +17,7 @@ import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 import android.util.Log;
 import android.opengl.Matrix;
+import android.util.*;
 
 class GLRenderer implements GLSurfaceView.Renderer {
 	private static final String TAG = "GLRenderer";
@@ -29,7 +30,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 	private long fpsStartTime;
 	private long numFrames;
 	
-	private float mFOV=60.0f,mAspect=1.0f;
+	private float mFOV=60.0f,mAspect=1.0f,mNear=0.1f,mFar=100f;
         private float[] mProjectionMatrix = new float[16];
         private float[] mViewMatrix = new float[16];
         private float[] mViewProjectionMatrix = new float[16];
@@ -47,11 +48,16 @@ class GLRenderer implements GLSurfaceView.Renderer {
 
 	public void zoom(float amount)
 	{
-		// TODO: Implement this method
-	}
+		float fovMin=10;
+		float fovMax=70;
+		mFOV-=amount/12;
+		if(mFOV<fovMin)mFOV=fovMin;
+		if(mFOV>fovMax)mFOV=fovMax;
+		}
 
 	public void orientate(float[] m)
 	{
+	
 			mViewMatrix[0]=m[0];
 			mViewMatrix[1]=m[1];
 			mViewMatrix[2]=m[2];
@@ -156,7 +162,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		gl.glMatrixMode(GL10.GL_PROJECTION);
 		gl.glLoadIdentity();
 		float mAspect = (float) width / height;
-		perspectiveM(mProjectionMatrix, (float)Math.toRadians(mFOV), mAspect, 0.1f, 200.f);
+		perspectiveM(mProjectionMatrix, (float)Math.toRadians(mFOV), mAspect, mNear, mFar);
 //		Matrix.multiplyMM(mViewProjectionMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
 		gl.glLoadMatrixf(mProjectionMatrix,0);
 //		updateMatrices(gl);
@@ -171,7 +177,10 @@ class GLRenderer implements GLSurfaceView.Renderer {
 	public void onDrawFrame(GL10 gl) {
 		// Clear the screen to black
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT	| GL10.GL_DEPTH_BUFFER_BIT);
-		
+		perspectiveM(mProjectionMatrix,(float)Math.toRadians(mFOV),mAspect,mNear,mFar);
+		gl.glMatrixMode(gl.GL_PROJECTION);
+		gl.glLoadMatrixf(mProjectionMatrix,0);
+		gl.glMatrixMode(gl.GL_MODELVIEW);
 		// Position model so we can see it
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 //		Matrix.setIdentityM(mViewMatrix, 0);
