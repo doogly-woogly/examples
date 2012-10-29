@@ -1,7 +1,7 @@
 package org.example.opengl;
 
 class Ti {
-	public int[] vs=new int[3];
+	public short[] vs=new int[3];
 	public Ti() {   }
 	public Ti(int a,int b,int c){
 		vs[0]=a;
