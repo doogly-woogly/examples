@@ -28,7 +28,7 @@ import android.animation.*;
 class GLSphere extends Entity{
 	private final FloatBuffer mVertexBuffer;
 	private final ShortBuffer mIndexBuffer;
-	private final NormalBuffer mNormalBuffer;
+	private final FloatBuffer mNormalBuffer;
 	
 	public List<Ti> tris=new ArrayList<Ti>();
 	public List<V3> vertices = new ArrayList<V3>();
@@ -82,7 +82,7 @@ class GLSphere extends Entity{
 		}
 		mVertexBuffer.position(0);
 		
-		ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.size()*4*3);
+		vbb = ByteBuffer.allocateDirect(vertices.size()*4*3);
 		vbb.order(ByteOrder.nativeOrder());
 		mNormalBuffer = vbb.asFloatBuffer();
 		for(int i=0;i<vertices.size();i++){

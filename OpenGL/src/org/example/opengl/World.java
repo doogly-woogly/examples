@@ -39,8 +39,9 @@ class World {
 	
 	public World() {
 		sphere.SubDivide(1);
-		for(int i=0;i<sphere.vertices.length;i){
-			Node n=new Node(vertices[i].x,vertices[i].y,vertices[i].z);
+		for(int i=0;i<sphere.vertices.size();i++){
+			V3 v=sphere.vertices.get(i);
+			Node n=new Node(v.x,v.y,v.z);
 			n.obj=new GLSphere();
 			nodes.add(n);
 		}
