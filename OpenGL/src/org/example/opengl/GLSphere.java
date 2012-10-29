@@ -72,7 +72,9 @@ class GLSphere extends Entity{
 		tris.add(new Ti(8,6,11));
 		tris.add(new Ti(10,8,11));
 		
-		
+		BuildBuffers();
+	}
+	private void BuildBuffers(){	
 		ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.size()*4*3);
 		vbb.order(ByteOrder.nativeOrder());
 		mVertexBuffer = vbb.asFloatBuffer();
@@ -111,7 +113,7 @@ class GLSphere extends Entity{
 	}
 	
 	public void SubDivide(int iDivs){
-		
+		BuildBuffers();
 	}
 	
 	@Override
