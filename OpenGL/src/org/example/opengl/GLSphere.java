@@ -215,5 +215,61 @@ v.ae (   ( verts[t.vs[2]].s(verts[t.vs[1]])    ).d(idivs).m(iy)  );
 		bmp.recycle();
 	}
 	
+	public void ReorganiseData(V3[] verts){
+		/*int iverts=0;
+		int itriangles=0;
+		int i;
+		
+		/*counts triangles
+		for(i=20;i<max_triangles;i++){
+			if(pGeo->pVerts[pGeo->pTris[i].i_verts[0]].v!=vector(0,0,0)){
+				itriangles++;
+			}
+		}*
+		
+		vert*pVerts=new vert[iverts];
+		triangle*pTris=new triangle[itriangles];
+		
+		
+		unsigned iit=0;
+		for(i=20;i<max_triangles;i++){
+			if(pGeo->pVerts[pGeo->pTris[i].i_verts[0]].v!=vector(0,0,0)){
+				for(unsigned w=0;w<3;w++){
+					pTris[iit].i_verts[w]=pGeo->pTris[i].i_verts[w];
+				}
+				iit++;
+			}
+		}
+		
+		unsigned iv=0;
+		for(i=0;i<max_verts;i++){
+			if(pGeo->pVerts[i].v!=vector(0,0,0)){
+				pVerts[iv].v=pGeo->pVerts[i].v;
+				for(unsigned it=0;it<itriangles;it++){
+					for(unsigned w=0;w<3;w++)
+					if(pTris[it].i_verts[w]==i){
+						pTris[it].i_verts[w]=iv;
+					}
+				}
+				iv++;
+			}
+		}
+		
+		delete[max_verts]pGeo->pVerts;
+		delete[max_triangles]pGeo->pTris;
+		pGeo->iverts=iverts;
+		pGeo->pVerts=new vert[iverts];
+		pGeo->itris=itriangles;
+		pGeo->pTris=new triangle[itriangles];
+		for(i=0;i<iverts;i++){
+			pGeo->pVerts[i].v=pVerts[i].v;
+		}
+		for(i=0;i<itriangles;i++){
+			for(unsigned w=0;w<3;w++){
+				pGeo->pTris[i].i_verts[w]=pTris[i].i_verts[w];
+			}
+		}*/
+	}
+	
 }
 
