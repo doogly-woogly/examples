@@ -14,6 +14,9 @@ class V3 {
 		y/=l;
 		z/=l;
 	}
+	public void lengthsquared(){
+		return (x*x+y*y+z*z);
+	}
 	public V3 normed(){
 		V3 v=new V3(this);
 		v.norm();
