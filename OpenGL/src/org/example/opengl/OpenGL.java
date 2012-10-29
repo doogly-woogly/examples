@@ -63,8 +63,10 @@ public class OpenGL extends Activity {
 		
 		private Location currentLocation;
 		
-		private static final float grav[] = new float[3]; //Gravity (a.k.a accelerometer data)
-		private static final float mag[] = new float[3]; //Magnetic 
+		private static final int avg=3;
+		private static int iavg=0;
+		private static final float grav[][] = new float[avg][3]; //Gravity (a.k.a accelerometer data)
+		private static final float mag[][] = new float[avg][3]; //Magnetic 
 		private static final float rotation[] = new float[16]; //Rotation matrix in Android format
 		private static final float orientation[] = new float[3]; //azimuth, pitch,
 		private static final int MIN_TIME = 30*1000;
@@ -142,12 +144,14 @@ public class OpenGL extends Activity {
 //			setEGLContextClientVersion(2);
 //			if (kUseMultisampling)setEGLConfigChooser(mConfigChooser = new MultisampleConfigChooser());
 			setRenderer(mRenderer = new GLRenderer(c));
-			grav[0]=0;
-			grav[1]=0;
-			grav[2]=0;
-			mag[0]=0;
-			mag[1]=0;
-			mag[2]=0;
+			for(int i=0;i<avg;i++){
+				grav[avg][0]=0;
+				grav[avg][1]=0;
+				grav[avg][2]=0;
+				mag[avg][0]=0;
+				mag[avg][1]=0;
+				mag[avg][2]=0;
+			}
 		}
 		
 		@Override
@@ -157,18 +161,28 @@ public class OpenGL extends Activity {
 		public void onSensorChanged(SensorEvent event) {
 			//synchronized (this) {
 			if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-				grav[0] = event.values[0];
-				grav[1] = event.values[1];
-				grav[2] = event.values[2];
+				grav[iavg][0] = event.values[0];
+				grav[iavg][1] = event.values[1];
+				grav[iavg][2] = event.values[2];
 			} else if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
-				mag[0] = event.values[0];
-				mag[1] = event.values[1];
-				mag[2] = event.values[2];
+				mag[iavg][0] = event.values[0];
+				mag[iavg][1] = event.values[1];
+				mag[iavg][2] = event.values[2];
+			}
+			
+			float[] ag=new float[3];
+			float[] am=new float[3];
+			for(int g=0;g<3;g++){
+				for(int a=0;a<avg;a++){
+			ag[g]+=grav[a][g];
+			am[g]+=mag[a][g];
+			}
+			am[g]/=avg;
 			}
 			
 			//Get rotation matrix given the gravity and geomagnetic matrices
 			//if((mag[0]==0&&mag[1]==0&&mag[2]==0)||(grav[0]==0&&grav[1]==0&&grav[2]==0))return;
-			SensorManager.getRotationMatrix(rotation, null, grav, mag);
+			SensorManager.getRotationMatrix(rotation, null, ag, am);
 			//  SensorManager.getOrientation(rotation, orientation);
 			//  floatBearing = orientation[0];
 			
