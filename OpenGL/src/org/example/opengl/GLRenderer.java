@@ -29,7 +29,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 	private long fpsStartTime;
 	private long numFrames;
 	
-	private float mFOV=45.0f,mAspect=1.0f;
+	private float mFOV=80.0f,mAspect=1.0f;
         private float[] mProjectionMatrix = new float[16];
         private float[] mViewMatrix = new float[16];
         private float[] mViewProjectionMatrix = new float[16];
