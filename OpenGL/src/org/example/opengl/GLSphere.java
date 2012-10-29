@@ -94,9 +94,9 @@ class GLSphere extends Entity{
 		}
 		mNormalBuffer.position(0);
 		
-		mIndexBuffer = ByteBuffer.allocateDirect(tris.size() * 2*3).order(ByteOrder.nativeOrder()).asShortBuffer();
-		for(int i=0;i<tris.size();i++){
-			Ti t=tris.get(i);
+		mIndexBuffer = ByteBuffer.allocateDirect(tris.length * 2*3).order(ByteOrder.nativeOrder()).asShortBuffer();
+		for(int i=0;i<tris.length;i++){
+			Ti t=tris[i];
 			mIndexBuffer.put(t.vs);
 		}
 		mIndexBuffer.position(0);
@@ -163,7 +163,7 @@ v.ae (   ( verts[t.vs[2]].s(verts[t.vs[1]])    ).d(idivs).m(iy)  );
 	
 	public void SubDivide(int iDivs){
 		for(int i=0;i<tris.length;i++){
-			SubTri(tris.[i],iDivs);
+			SubTri(tris[i],iDivs);
 		}
 		MergeVerts(0,0.001f);
 		BuildBuffers();
