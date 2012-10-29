@@ -132,6 +132,9 @@ v.ae (   ( verts[t.vs[2]].s(verts[t.vs[1]])    ).d(idivs).m(iy)  );
 //				iv+=1;
 			//	v.z=iy;
 				v.norm();
+		Node n=new Node(v.x,v.y,v.z);
+		n.obj=GLSphere();
+		Ti.nodes.add(n);
 		vertices.add(v);
 			}
 		}

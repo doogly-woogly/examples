@@ -39,8 +39,8 @@ class World {
 	
 	public World() {
 		sphere.SubDivide(8);
-		for(int i=0;i<sphere.vertices.size();i++){
-			V3 v=sphere.vertices.get(i);
+		/*V3 v=sphere.vertices.get(i);
+		for(int i=0;i<sphere.tris.size();i++){
 			Node n=new Node(v.x,v.y,v.z);
 			if(i==0){
 				n.obj=new Bacteria();
@@ -50,17 +50,19 @@ class World {
 				n.obj=new GLSphere();
 			}
 			nodes.add(n);
-		}
+		}*/
 	}
 	
 	
 	public void draw(GL10 gl,float[] proj,float[] modl) {		
 		ExtractFrustum(gl,proj,modl);
 		//sphere.draw(gl);
-		for (Node temp : nodes) {
+		for(Ti tri:sphere.tris){
+		for (Node temp : tri.nodes) {
 			if(PointInFrustum(temp.pos,1)){
 				temp.draw(gl);
 			}
+		}
 		}
 	}
 	
