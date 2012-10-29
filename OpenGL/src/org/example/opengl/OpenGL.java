@@ -64,7 +64,7 @@ public class OpenGL extends Activity {
 		private Location currentLocation;
 		
 		private static final int avg=3;
-		private static int iavg=0;
+		private int iavg=0;
 		private static final float grav[][] = new float[avg][3]; //Gravity (a.k.a accelerometer data)
 		private static final float mag[][] = new float[avg][3]; //Magnetic 
 		private static final float rotation[] = new float[16]; //Rotation matrix in Android format
@@ -145,12 +145,12 @@ public class OpenGL extends Activity {
 //			if (kUseMultisampling)setEGLConfigChooser(mConfigChooser = new MultisampleConfigChooser());
 			setRenderer(mRenderer = new GLRenderer(c));
 			for(int i=0;i<avg;i++){
-				grav[avg][0]=0;
-				grav[avg][1]=0;
-				grav[avg][2]=0;
-				mag[avg][0]=0;
-				mag[avg][1]=0;
-				mag[avg][2]=0;
+				grav[i][0]=0;
+				grav[i][1]=0;
+				grav[i][2]=0;
+				mag[i][0]=0;
+				mag[i][1]=0;
+				mag[i][2]=0;
 			}
 		}
 		
@@ -169,14 +169,20 @@ public class OpenGL extends Activity {
 				mag[iavg][1] = event.values[1];
 				mag[iavg][2] = event.values[2];
 			}
+			iavg++;
+			if(iavg>=avg)
+				iavg=0;
 			
 			float[] ag=new float[3];
 			float[] am=new float[3];
 			for(int g=0;g<3;g++){
+				ag[g]=0;
+				am[g]=0;
 				for(int a=0;a<avg;a++){
 			ag[g]+=grav[a][g];
 			am[g]+=mag[a][g];
 			}
+			ag[g]/=avg;
 			am[g]/=avg;
 			}
 			
