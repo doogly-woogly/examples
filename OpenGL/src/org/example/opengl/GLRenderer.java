@@ -29,7 +29,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 	private long fpsStartTime;
 	private long numFrames;
 	
-	private float mFOV=80.0f,mAspect=1.0f;
+	private float mFOV=60.0f,mAspect=1.0f;
         private float[] mProjectionMatrix = new float[16];
         private float[] mViewMatrix = new float[16];
         private float[] mViewProjectionMatrix = new float[16];
@@ -179,7 +179,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 //		gl.glLoadIdentity();
 //		Matrix.setIdentityM(mViewMatrix, 0);
 //		long elapsed = System.currentTimeMillis() - startTime;
-//		gl.glTranslatef(0, 0, 0);
+//		gl.glTranslatef(0, 0, -5);
 //		Matrix.translateM(mViewMatrix, 0, 0, 0, -5);
 		 
 //		gl.glRotatef(elapsed * (30f / 1000f), 0, 1, 0);
