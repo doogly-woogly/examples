@@ -14,7 +14,7 @@ class V3 {
 		y/=l;
 		z/=l;
 	}
-	public void lengthsquared(){
+	public float lengthsquared(){
 		return (x*x+y*y+z*z);
 	}
 	public V3 normed(){

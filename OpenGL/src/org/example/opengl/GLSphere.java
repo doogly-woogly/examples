@@ -160,7 +160,7 @@ v.ae (   ( verts[t.vs[2]].s(verts[t.vs[1]])    ).d(idivs).m(iy)  );
 		for(int i=0;i<tris.size();i++){
 			SubTri(tris.get(i),iDivs);
 		}
-		MergeVerts(12,0.1f);
+		MergeVerts(0,0.001f);
 		BuildBuffers();
 	}
 	
@@ -170,7 +170,7 @@ v.ae (   ( verts[t.vs[2]].s(verts[t.vs[1]])    ).d(idivs).m(iy)  );
 		
 		for(int a=start;a<verts.length;a++){
 			for(int b=a+1;b<verts.length;b++){
-				if((verts[a].s(pGeo->pVerts[b].v).lengthsquared()<=tol){
+				if(verts[a].s(verts[b]).lengthsquared()<=tol){
 					/*for(int q=0;q<pGeo->itris;q++){
 						for(unsigned w=0;w<3;w++)
 							if(pGeo->pTris[q].i_verts[w]==b)
