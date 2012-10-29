@@ -42,7 +42,13 @@ class World {
 		for(int i=0;i<sphere.vertices.size();i++){
 			V3 v=sphere.vertices.get(i);
 			Node n=new Node(v.x,v.y,v.z);
-			n.obj=new GLSphere();
+			if(i==0){
+				n.obj=new Bacteria();
+			}else if(i<40){
+				n.obj=new GLCube();
+			}else{
+				n.obj=new GLSphere();
+			}
 			nodes.add(n);
 		}
 	}
