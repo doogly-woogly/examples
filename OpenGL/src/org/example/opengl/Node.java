@@ -28,7 +28,8 @@ class Node {
        //     toast.show();  
    	   gl.glPushMatrix();
    	   gl.glTranslatef(pos[0],pos[1],pos[2]);
-//	   gl.glScalef(0.7f,0.7f,0.7f);
+	   float s=0.1f;
+	   gl.glScalef(s,s,s);
    	   if(obj!=null)obj.draw(gl);
    	   gl.glPopMatrix();
    }

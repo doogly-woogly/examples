@@ -103,15 +103,15 @@ tris.add(new Ti(10,8,11));
 	public void draw(GL10 gl) {
 		gl.glPushMatrix();
 		gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-		gl.glEnableClientState(GL10.GL_INDEN_ARRAY);
+	//	gl.glEnableClientState(GL10.GL_INDEN_ARRAY);
 		gl.glScalef(1f,1f,1f);
 		
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
-		gl.glIndexPointer(3,GL10.GL_SHORT,0,mIndexBuffer);
+	//	gl.glIndexPointer(3,GL10.GL_SHORT,0,mIndexBuffer);
 		
 		gl.glColor4f(1, 1, 1, 1);
 		gl.glNormal3f(0, 0, 1);
-		gl.glDrawArrays(GL10.GL_POINTS, 0, 12);
+		gl.glDrawElements(GL10.GL_TRIANGLES, 60,GL10.GL_UNSIGNED_SHORT,mIndexBuffer);
 		
 		gl.glPopMatrix();
 	}

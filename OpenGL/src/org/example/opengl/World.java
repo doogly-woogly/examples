@@ -82,7 +82,7 @@ class World {
 	public World() {
 		for(int i=0;i<vertices.length;i+=3){
 			Node n=new Node(vertices[i],vertices[i+1],vertices[i+2]);
-			n.obj=new GLCube();
+			n.obj=new GLSphere();
 			nodes.add(n);
 		}
 	}
@@ -90,7 +90,7 @@ class World {
 	
 	public void draw(GL10 gl,float[] proj,float[] modl) {		
 		ExtractFrustum(gl,proj,modl);
-		sphere.draw(gl);
+		//sphere.draw(gl);
 		for (Node temp : nodes) {
 			if(PointInFrustum(temp.pos,1)){
 				temp.draw(gl);
