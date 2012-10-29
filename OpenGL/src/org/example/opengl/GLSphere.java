@@ -111,8 +111,43 @@ class GLSphere extends Entity{
 		//mTextureBuffer.position(0);
 		
 	}
+
+	private void SubTri(Ti t,int idivs){	
+		int siv=0,ix,iy;
+		for(ix=0;ix<=idivs;ix++){
+			for(iy=0;iy<=ix;iy++){
+				pGeo->pVerts[*iv].v=
+				pGeo->pVerts[pTri->i_verts[0]].v+
+				((pGeo->pVerts[pTri->i_verts[1]].v-pGeo->pVerts[pTri->i_verts[0]].v)/(idivs))*ix;
+				pGeo->pVerts[*iv].v+=((pGeo->pVerts[pTri->i_verts[2]].v-pGeo->pVerts[pTri->i_verts[1]].v)/(idivs))*iy;
+				*iv=*iv+1;
+			}
+		}
+		
+		
+		for(ix=1;ix<=idivs;ix++){
+			for(iy=0;iy<ix-1;iy++){
+				pGeo->pTris[*it].i_verts[0]=siv+iy;
+				pGeo->pTris[*it].i_verts[1]=siv+ix+iy;
+				pGeo->pTris[*it].i_verts[2]=siv+ix+1+iy;
+				*it=*it+1;
+				pGeo->pTris[*it].i_verts[0]=siv+iy;
+				pGeo->pTris[*it].i_verts[1]=siv+ix+1+iy;
+				pGeo->pTris[*it].i_verts[2]=siv+1+iy;
+				*it=*it+1;
+			}
+			pGeo->pTris[*it].i_verts[0]=siv+iy;
+			pGeo->pTris[*it].i_verts[1]=siv+ix+iy;
+			pGeo->pTris[*it].i_verts[2]=siv+ix+1+iy;
+			*it=*it+1;
+			siv+=ix;
+		}
+	}
 	
 	public void SubDivide(int iDivs){
+		for(int i=0;i<tris.size();i++){
+			SubTri(tris.get(i));
+		}
 		BuildBuffers();
 	}
 	
