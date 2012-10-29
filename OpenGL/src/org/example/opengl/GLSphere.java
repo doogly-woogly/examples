@@ -30,7 +30,7 @@ class GLSphere extends Entity{
 	private ShortBuffer mIndexBuffer;
 	private FloatBuffer mNormalBuffer;
 	
-	public List<Ti> tris=new ArrayList<Ti>();
+	public Ti[] tris;
 	public List<V3> vertices = new ArrayList<V3>();
 	
 	public GLSphere() {
@@ -50,28 +50,28 @@ class GLSphere extends Entity{
 		vertices.add(new V3(0,-gold,+one));
 		vertices.add(new V3(-gold,-one,0));
 		vertices.add(new V3(+gold,-one,0));
-		
-		tris.add(new Ti(0,1,2));
-		tris.add(new Ti(1,0,3));
-		tris.add(new Ti(0,2,4));
-		tris.add(new Ti(0,4,5));
-		tris.add(new Ti(3,0,5));
-		tris.add(new Ti(2,1,6));
-		tris.add(new Ti(6,1,7));
-		tris.add(new Ti(1,3,7));
-		tris.add(new Ti(3,5,9));
-		tris.add(new Ti(7,3,9));
-		tris.add(new Ti(4,2,8));
-		tris.add(new Ti(2,6,8));
-		tris.add(new Ti(4,8,10));
-		tris.add(new Ti(5,4,10));
-		tris.add(new Ti(9,5,10));
-		tris.add(new Ti(9,10,11));
-		tris.add(new Ti(7,9,11));
-		tris.add(new Ti(6,7,11));
-		tris.add(new Ti(8,6,11));
-		tris.add(new Ti(10,8,11));
-		
+		List<Ti> ltris=new ArrayList<Ti>();
+		ltris.add(new Ti(0,1,2));
+		ltris.add(new Ti(1,0,3));
+		ltris.add(new Ti(0,2,4));
+		ltris.add(new Ti(0,4,5));
+		ltris.add(new Ti(3,0,5));
+		ltris.add(new Ti(2,1,6));
+		ltris.add(new Ti(6,1,7));
+		ltris.add(new Ti(1,3,7));
+		ltris.add(new Ti(3,5,9));
+		ltris.add(new Ti(7,3,9));
+		ltris.add(new Ti(4,2,8));
+		ltris.add(new Ti(2,6,8));
+		ltris.add(new Ti(4,8,10));
+		ltris.add(new Ti(5,4,10));
+		ltris.add(new Ti(9,5,10));
+		ltris.add(new Ti(9,10,11));
+		ltris.add(new Ti(7,9,11));
+		ltris.add(new Ti(6,7,11));
+		ltris.add(new Ti(8,6,11));
+		ltris.add(new Ti(10,8,11));
+		tris=ltris.toArray(new Ti[ltris.size()]);
 		BuildBuffers();
 	}
 	private void BuildBuffers(){	
@@ -109,6 +109,10 @@ class GLSphere extends Entity{
 		//mTextureBuffer = tbb.asIntBuffer();
 		//mTextureBuffer.put(texCoords);
 		//mTextureBuffer.position(0);
+		
+	}
+	
+	private void BuildAdjacent(){
 		
 	}
 
@@ -158,8 +162,8 @@ v.ae (   ( verts[t.vs[2]].s(verts[t.vs[1]])    ).d(idivs).m(iy)  );
 	}
 	
 	public void SubDivide(int iDivs){
-		for(int i=0;i<tris.size();i++){
-			SubTri(tris.get(i),iDivs);
+		for(int i=0;i<tris.length;i++){
+			SubTri(tris.[i],iDivs);
 		}
 		MergeVerts(0,0.001f);
 		BuildBuffers();
