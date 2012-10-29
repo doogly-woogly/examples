@@ -31,48 +31,6 @@ class World {
 	private float frustum[][]=new float[6][4];
 	
 	private List<Node> nodes = new ArrayList<Node>();
-	float one = 1f;
-	float gold = (float)((double)one/1.61803398875);
-	float half = one / 2;
-	
-	
-	private float vertices[] = {
-		-gold,+one,0,
-		+gold,+one,0,
-		0,+gold,-one,
-		0,+gold,+one,
-		-one,0,-gold,
-		-one,0,+gold,
-		+one,0,-gold,
-		+one,0,+gold,
-		0,-gold,-one,
-		0,-gold,+one,
-		-gold,-one,0,
-		+gold,-one,0,
-	};
-	
-	private int[] faces={
-		0,1,2,        
-		1,0,3,
-		0,2,4,
-		0,4,5,
-		3,0,5,
-		2,1,6,        
-		6,1,7,  
-		1,3,7,
-		3,5,9,
-		7,3,9,
-		4,2,8,  
-		2,6,8,  
-		4,8,10,  
-		5,4,10, 
-		9,5,10,
-		9,10,11, 
-		7,9,11,
-		6,7,11, 
-		8,6,11,
-		10,8,11,
-	};
 	
 	public void Load(GL10 gl,Context context){
 		GLCube.loadTexture(gl, context, R.drawable.android);
@@ -80,8 +38,9 @@ class World {
 	}
 	
 	public World() {
-		for(int i=0;i<vertices.length;i+=3){
-			Node n=new Node(vertices[i],vertices[i+1],vertices[i+2]);
+		sphere.SubDivide(1);
+		for(int i=0;i<sphere.vertices.length;i){
+			Node n=new Node(vertices[i].x,vertices[i].y,vertices[i].z);
 			n.obj=new GLSphere();
 			nodes.add(n);
 		}
@@ -99,17 +58,10 @@ class World {
 	}
 	
 	public void ExtractFrustum(GL10 gl,float[] proj,float[] modl){
-		//float   proj[]=new float[16];
-		//float   modl[]=new float[16];
 		float   clip[]=new float[16];
 		float   t;
-		
-		/* Get the current PROJECTION matrix from OpenGL */
-		//proj=PROJECTION;
-		
-		/* Get the current MODELVIEW matrix from OpenGL */
-		//gl.glGetFloatfv( gl.GL_MODELVIEW, modl );
-		
+
+		//clip is already calcuated (possibly) in mViewProjectionMatrix
 		/* Combine the two matrices (multiply projection by modelview) */
 		clip[ 0] = modl[ 0] * proj[ 0] + modl[ 1] * proj[ 4] + modl[ 2] * proj[ 8] + modl[ 3] * proj[12];
 		clip[ 1] = modl[ 0] * proj[ 1] + modl[ 1] * proj[ 5] + modl[ 2] * proj[ 9] + modl[ 3] * proj[13];
@@ -210,13 +162,12 @@ class World {
 		frustum[5][3] /= t;
 	}
 	
-	boolean PointInFrustum( float[] x,float radius )
-	{
+	boolean PointInFrustum( float[] x,float radius ){
 		int p;
 		
 		for( p = 0; p < 6; p++ )
 			if( frustum[p][0] * x[0] + frustum[p][1] * x[1] + frustum[p][2] * x[2] + frustum[p][3] <-radius )
-			return false;
+				return false;
 		return true;
 	}
 }

@@ -28,7 +28,7 @@ import android.animation.*;
 class GLSphere extends Entity{
 	private final FloatBuffer mVertexBuffer;
 	private final ShortBuffer mIndexBuffer;
-	private final FloatBuffer mNormalBuffer;
+	private final NormalBuffer mNormalBuffer;
 	
 	private List<Ti> tris=new ArrayList<Ti>();
 	public GLSphere() {
@@ -36,7 +36,6 @@ class GLSphere extends Entity{
 		float gold = (float)((double)one/1.61803398875);
 		float half = one / 2;
 		List<V3> vertices = new ArrayList<V3>();
-		List<V3> norms=new ArrayList<V3>();
 		vertices.add(new V3(-gold,+one,0));
 		vertices.add(new V3(+gold,+one,0));
 		vertices.add(new V3(0,+gold,-one));
@@ -87,19 +86,9 @@ class GLSphere extends Entity{
 			Ti t=tris.get(i);
 			mIndexBuffer.put(t.vs);
 		}
+		
 		mIndexBuffer.position(0);
-
-
-		vbb = ByteBuffer.allocateDirect(vertices.size()*4*3);
-		vbb.order(ByteOrder.nativeOrder());
-		mNormalBuffer = vbb.asFloatBuffer();
-		for(int i=0;i<vertices.size();i++){
-			V3 v=vertices.get(i);
-			v.norm();
-			mNormalBuffer.put(new float[]{v.x,v.y,v.z});
-		}
-
-		mNormalBuffer.position(0);		
+		
 		
 		
 		// ...
@@ -108,6 +97,10 @@ class GLSphere extends Entity{
 		//mTextureBuffer = tbb.asIntBuffer();
 		//mTextureBuffer.put(texCoords);
 		//mTextureBuffer.position(0);
+		
+	}
+	
+	public void SubDivide(int iDivs){
 		
 	}
 	
