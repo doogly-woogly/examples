@@ -111,9 +111,9 @@ public class LocationTest extends Activity implements
             .append(",enabled=")
             .append(mgr.isProviderEnabled(provider))
             .append(",getAccuracy=")
-            .append(A[info.getAccuracy()])
+            .append(info.getAccuracy())//A[
             .append(",getPowerRequirement=")
-            .append(P[info.getPowerRequirement()])
+            .append(info.getPowerRequirement())//P[
             .append(",hasMonetaryCost=")
             .append(info.hasMonetaryCost())
             .append(",requiresCell=")
