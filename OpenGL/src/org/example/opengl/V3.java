@@ -14,7 +14,7 @@ class V3 {
 		y/=l;
 		z/=l;
 	}
-	public void normed(){
+	public V3 normed(){
 		V3 v=new V3(this);
 		v.norm();
 		return v;
@@ -22,10 +22,48 @@ class V3 {
 	
 	
 	/*God damn you java you stupid, fucking twat just allow operator overloading piece of rotton, old filth buried deep within the bowels of some dark, wet scum bucket!*/
-	public float a(V3 r){
+	public V3 a(V3 r){
 		V3 v=new V3(this);
 		v.x+=r.x;v.y+=r.y;v.z+=r.z;
 		return v;
+	}
+	
+	public void ae(V3 r){
+		x+=r.x;y+=r.y;z+=r.z;
+	}
+	
+	public V3 s(V3 r){
+		V3 v=new V3(this);
+		v.x-=r.x;v.y-=r.y;v.z-=r.z;
+		return v;
+	}
+	
+	public V3 m(V3 r){
+		V3 v=new V3(this);
+		v.x*=r.x;v.y*=r.y;v.z*=r.z;
+		return v;
+	}
+	
+	public V3 m(float r){
+		V3 v=new V3(this);
+		v.x*=r;v.y*=r;v.z*=r;
+		return v;
+	}
+	
+	public V3 d(V3 r){
+		V3 v=new V3(this);
+		v.x/=r.x;v.y/=r.y;v.z/=r.z;
+		return v;
+	}
+	
+	public V3 d(float r){
+		V3 v=new V3(this);
+		v.x/=r;v.y/=r;v.z/=r;
+		return v;
+	}
+	
+	public void eq(V3 r){
+		x=r.x;y=r.y;z=r.z;
 	}
 	
 }

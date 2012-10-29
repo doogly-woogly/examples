@@ -113,17 +113,23 @@ class GLSphere extends Entity{
 	}
 
 	private void SubTri(Ti t,int idivs){	
-		int siv=0,ix,iy;
+		int siv=0,ix,iy,iv=0;
+		float[] verts=sphere.vertices.asArray();
 		for(ix=0;ix<=idivs;ix++){
 			for(iy=0;iy<=ix;iy++){
-				pGeo->pVerts[*iv].v=
-				pGeo->pVerts[pTri->i_verts[0]].v+
-				((pGeo->pVerts[pTri->i_verts[1]].v-pGeo->pVerts[pTri->i_verts[0]].v)/(idivs))*ix;
-				pGeo->pVerts[*iv].v+=((pGeo->pVerts[pTri->i_verts[2]].v-pGeo->pVerts[pTri->i_verts[1]].v)/(idivs))*iy;
-				*iv=*iv+1;
+				//pGeo->pVerts[*iv].v=
+				verts[t.vs[iv]].eq(
+				//pGeo->pVerts[pTri->i_verts[0]].v+
+				verts[t.vs[0]].a(
+				//((pGeo->pVerts[pTri->i_verts[1]].v-pGeo->pVerts[pTri->i_verts[0]].v)/(idivs))*ix;
+				((verts[t.vs[1]].s(verts[t.vs[0]])).d(idivs).m(ix);
+				//pGeo->pVerts[*iv].v+=((pGeo->pVerts[pTri->i_verts[2]].v-pGeo->pVerts[pTri->i_verts[1]].v)/(idivs))*iy;
+				verts[iv].ae(  ((verts[t.vs[2]].s(verts[t.vs[1]])).d(idivs)).m(iy)  );
+				//*iv=*iv+1;
+				iv+=1;
 			}
 		}
-		
+/*		
 		
 		for(ix=1;ix<=idivs;ix++){
 			for(iy=0;iy<ix-1;iy++){
@@ -141,7 +147,7 @@ class GLSphere extends Entity{
 			pGeo->pTris[*it].i_verts[2]=siv+ix+1+iy;
 			*it=*it+1;
 			siv+=ix;
-		}
+		}*/
 	}
 	
 	public void SubDivide(int iDivs){
