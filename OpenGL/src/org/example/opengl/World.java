@@ -90,7 +90,7 @@ class World {
 	
 	public void draw(GL10 gl,float[] proj,float[] modl) {		
 		ExtractFrustum(gl,proj,modl);
-		//sphere.draw(gl);
+		sphere.draw(gl);
 		for (Node temp : nodes) {
 			if(PointInFrustum(temp.pos,1)){
 				temp.draw(gl);
