@@ -30,12 +30,14 @@ class GLSphere extends Entity{
 	private final ShortBuffer mIndexBuffer;
 	private final NormalBuffer mNormalBuffer;
 	
-	private List<Ti> tris=new ArrayList<Ti>();
+	public List<Ti> tris=new ArrayList<Ti>();
+	public List<V3> vertices = new ArrayList<V3>();
+	
 	public GLSphere() {
 		float one = 1;
 		float gold = (float)((double)one/1.61803398875);
 		float half = one / 2;
-		List<V3> vertices = new ArrayList<V3>();
+
 		vertices.add(new V3(-gold,+one,0));
 		vertices.add(new V3(+gold,+one,0));
 		vertices.add(new V3(0,+gold,-one));
@@ -78,15 +80,23 @@ class GLSphere extends Entity{
 			V3 v=vertices.get(i);
 			mVertexBuffer.put(new float[]{v.x,v.y,v.z});
 		}
-		
 		mVertexBuffer.position(0);
+		
+		ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.size()*4*3);
+		vbb.order(ByteOrder.nativeOrder());
+		mNormalBuffer = vbb.asFloatBuffer();
+		for(int i=0;i<vertices.size();i++){
+			V3 v=vertices.get(i);
+			v.norm();
+			mNormalBuffer.put(new float[]{v.x,v.y,v.z});
+		}
+		mNormalBuffer.position(0);
 		
 		mIndexBuffer = ByteBuffer.allocateDirect(tris.size() * 2*3).order(ByteOrder.nativeOrder()).asShortBuffer();
 		for(int i=0;i<tris.size();i++){
 			Ti t=tris.get(i);
 			mIndexBuffer.put(t.vs);
 		}
-		
 		mIndexBuffer.position(0);
 		
 		
