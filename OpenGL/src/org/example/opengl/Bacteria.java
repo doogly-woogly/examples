@@ -25,6 +25,12 @@ class Bacteria extends GLSphere{
 		pos=new V3(x,y,z);
 		pos.norm();
 	}
+	public Bacteria(V3 i,V3 e,V3 p){
+		is=new V3(i.x,i.y,i.z);
+		eats=new V3(e.x,e.y,e.z);
+		pos=new V3(p.x,p.y,p.z);
+		pos.norm();
+	}
 	
 	public void Process(float fTime){
 		if(size<=0)bacterium.remove(this);
@@ -35,7 +41,8 @@ class Bacteria extends GLSphere{
 		}
 	}
 	public void Divide(){
-		
+		size=1;
+		Bacteria.bacterium.add(new Bacteria(is, eats, new V3(pos.x+1,pos.y,pos.z));
 	}
 	public boolean Collided(Bacteria bb){
 		return bb.pos.s(pos).lengthsquared()>size*size+bb.size*bb.size;
