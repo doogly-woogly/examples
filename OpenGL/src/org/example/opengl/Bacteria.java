@@ -34,7 +34,8 @@ class Bacteria extends GLSphere{
 	}
 	
 	public void Process(float fTime){
-		if(size<=0)bacterium.remove(this);
+		if(size<=0){//bacterium.remove(this);
+		return;}
 		age+=fTime;
 		Random r=new Random();
 		size+=r.nextFloat()*scale;
@@ -58,22 +59,23 @@ class Bacteria extends GLSphere{
 		float dist=Distance(bb);
 		if(dist<0){
 			//test eat
-			float eat=bb.is.s(eats).sum();
+			float eat=is.m(bb.eats).sum();
 			//test eaten
-			float eaten=is.s(bb.eats).sum();
-			//eat-=eaten;
-			eat*=fTime;
+			float eaten=is.m(eats).sum();
+			eat-=eaten;
+			eat*=5;
 			if(eat>0){
 				Eat(bb,eat);
 			}else if(eat<0){
-				bb.Eat(this,fTime);
-			}else{
-				V3 dir=pos.s(bb.pos);
-				dir.eq(dir.m(dist*0.5f)
-				pos.ae(dir);
-				dir.eq(dir.m(-1));
-				bb.pos.ae(dir);
+				bb.Eat(this,eat);
 			}
+				V3 dir=pos.s(bb.pos);
+				dir.norm();
+				dir.eq(dir.m(-0.1f));
+				bb.pos.ae(dir);
+				dir.eq(dir.m(-1));
+				pos.ae(dir);
+			
 		}
 	}
 	public void Eat(Bacteria bb,float eat){

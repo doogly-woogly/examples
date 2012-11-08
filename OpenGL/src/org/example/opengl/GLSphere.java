@@ -26,12 +26,12 @@ import java.nio.*;
 import android.animation.*;
 
 class GLSphere extends Entity{
-	private FloatBuffer mVertexBuffer;
-	private ShortBuffer mIndexBuffer;
-	private FloatBuffer mNormalBuffer;
+	private static FloatBuffer mVertexBuffer;
+	private static ShortBuffer mIndexBuffer;
+	private static FloatBuffer mNormalBuffer;
 	
 	public Ti[] tris;
-	public List<V3> vertices = new ArrayList<V3>();
+	public static List<V3> vertices = new ArrayList<V3>();
 	
 	public GLSphere() {
 		float one = 1;
