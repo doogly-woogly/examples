@@ -18,6 +18,7 @@ class Bacteria extends GLSphere{
 	public V3 is=new V3();
 	private float size=1.0f;
 	private float age=0;
+	private static float scale=0.05f;
 	
 	public Bacteria(float ix,float iy,float iz,float ex,float ey,float ez,float x,float y,float z){
 		is=new V3(ix,iy,iz);
@@ -35,14 +36,19 @@ class Bacteria extends GLSphere{
 	public void Process(float fTime){
 		if(size<=0)bacterium.remove(this);
 		age+=fTime;
-		size+=0.01f;
+		Random r=new Random();
+		size+=r.nextFloat()*scale;
 		if(size>=2){
 			Divide();
 		}
 	}
 	public void Divide(){
 		size=1;
-		Bacteria.bacterium.add(new Bacteria(is, eats, new V3(pos.x+.01f,pos.y,pos.z)));
+		Random r=new Random();
+		float rx=(r.nextFloat()-0.5f)*0.1f;
+		float ry=(r.nextFloat()-0.5f)*0.1f;
+		float rz=(r.nextFloat()-0.5f)*0.1f;
+		Bacteria.bacterium.add(new Bacteria(is, eats, new V3(pos.x+rx,pos.y+ry,pos.z+rz)));
 	}
 	public boolean Collided(Bacteria bb){
 		return bb.pos.s(pos).lengthsquared()>size*size+bb.size*bb.size;
@@ -64,7 +70,7 @@ class Bacteria extends GLSphere{
 			}else{
 				V3 dir=pos.s(bb.pos).d(2);
 				pos.ae(dir);
-				dir.eq(dir.m(-1);=);
+				dir.eq(dir.m(-1));
 				bb.pos.ae(dir);
 			}
 		}
@@ -79,7 +85,7 @@ class Bacteria extends GLSphere{
 		//remove from bacterium list
 	}
 	public float Distance(Bacteria bb){
-		return bb.pos.s(pos).length()-(size+bb.size);
+		return bb.pos.s(pos).length()-(size*scale+bb.size*scale);
 	}
 	
 	@Override
@@ -87,7 +93,7 @@ class Bacteria extends GLSphere{
 		gl.glColor4f(is.x, is.y, is.z, 1);
 		gl.glPushMatrix();
 		gl.glTranslatef(pos.x,pos.y,pos.z);
-		float sc=0.03f*size;
+		float sc=scale*size;
 		gl.glScalef(sc,sc,sc);
 		float matAmbient[] = new float[] { 0.1f, 0.1f, .1f, 1f };
 		float matDiffuse[] = new float[] { is.x, is.y, is.z, 1 };
