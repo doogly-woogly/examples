@@ -61,14 +61,15 @@ class Bacteria extends GLSphere{
 			float eat=bb.is.s(eats).sum();
 			//test eaten
 			float eaten=is.s(bb.eats).sum();
-			eat-=eaten;
+			//eat-=eaten;
 			eat*=fTime;
 			if(eat>0){
 				Eat(bb,eat);
 			}else if(eat<0){
 				bb.Eat(this,fTime);
 			}else{
-				V3 dir=pos.s(bb.pos).d(2);
+				V3 dir=pos.s(bb.pos);
+				dir.eq(dir.m(dist*0.5f)
 				pos.ae(dir);
 				dir.eq(dir.m(-1));
 				bb.pos.ae(dir);
