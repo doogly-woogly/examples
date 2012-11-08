@@ -42,7 +42,7 @@ class Bacteria extends GLSphere{
 	}
 	public void Divide(){
 		size=1;
-		Bacteria.bacterium.add(new Bacteria(is, eats, new V3(pos.x+1,pos.y,pos.z));
+		Bacteria.bacterium.add(new Bacteria(is, eats, new V3(pos.x+.01f,pos.y,pos.z)));
 	}
 	public boolean Collided(Bacteria bb){
 		return bb.pos.s(pos).lengthsquared()>size*size+bb.size*bb.size;
@@ -61,6 +61,11 @@ class Bacteria extends GLSphere{
 				Eat(bb,eat);
 			}else if(eat<0){
 				bb.Eat(this,fTime);
+			}else{
+				V3 dir=pos.s(bb.pos).d(2);
+				pos.ae(dir);
+				dir.eq(dir.m(-1);=);
+				bb.pos.ae(dir);
 			}
 		}
 	}
