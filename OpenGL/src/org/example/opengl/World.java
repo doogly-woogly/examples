@@ -47,7 +47,7 @@ class World {
 	public void Process(){
 		//process bacteria
 		//Bacteria:Process()
-		for(Ti t:sphere.tris){
+/*		for(Ti t:sphere.tris){
 			for(int x=0;x<sphere.idivs;x++){
 				for(int y=0;y<x;y++){
 					if(y<x-1)
@@ -82,10 +82,10 @@ class World {
 						return;//false
 					}
 				}
-			}
-			int len=t.nodes.size();
-			for(Node n:t.nodes){
-				int y=
+			}*/
+///			int len=t.nodes.size();
+//			for(Node n:t.nodes){
+	//			int y=
 				//ns adjacent
 				/*if len ==3
 					   //0
@@ -106,8 +106,8 @@ class World {
 				           21
 				           28
 				*/
-			}
-		}
+//			}
+//		}
 		//breed bacteria
 	}
 	
