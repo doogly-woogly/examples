@@ -113,10 +113,8 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		// What is the cube made of?
 		float matAmbient[] = new float[] { 1, 1, 1, 1 };
 		float matDiffuse[] = new float[] { 1, 1, 1, 1 };
-		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT,
-			matAmbient, 0);
-		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE,
-			matDiffuse, 0);
+		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT,matAmbient, 0);
+		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE,matDiffuse, 0);
 		
 		
 		

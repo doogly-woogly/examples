@@ -9,9 +9,10 @@ import javax.microedition.khronos.opengles.GL10;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLUtils;
+import java.util.*;
 
 class Bacteria extends GLSphere{
-	public static List<Bacteria> bacterium=new ArrayList<Bacteria>;
+	public static List<Bacteria> bacterium=new ArrayList<Bacteria>();
 	private V3 pos;
 	public V3 eats=new V3();
 	public V3 is=new V3();
@@ -25,9 +26,16 @@ class Bacteria extends GLSphere{
 		pos.norm();
 	}
 	
-	public static void Process(float fTime){
+	public void Process(float fTime){
 		if(size<=0)bacterium.remove(this);
 		age+=fTime;
+		size+=0.01f;
+		if(size>=2){
+			Divide();
+		}
+	}
+	public void Divide(){
+		
 	}
 	public boolean Collided(Bacteria bb){
 		return bb.pos.s(pos).lengthsquared()>size*size+bb.size*bb.size;
@@ -41,16 +49,17 @@ class Bacteria extends GLSphere{
 			//test eaten
 			float eaten=is.s(bb.eats).sum();
 			eat-=eaten;
+			eat*=fTime;
 			if(eat>0){
-				Eat(bb,fTime);
+				Eat(bb,eat);
 			}else if(eat<0){
 				bb.Eat(this,fTime);
 			}
 		}
 	}
-	public void Eat(Bacteria bb,fTime){
-		bb.size-=eat*fTime;
-		size+=eat*fTime;
+	public void Eat(Bacteria bb,float eat){
+		bb.size-=eat;
+		size+=eat;
 		if(bb.size<=0)bb.Die();
 	}
 	public void Die(){
@@ -66,8 +75,18 @@ class Bacteria extends GLSphere{
 		gl.glColor4f(is.x, is.y, is.z, 1);
 		gl.glPushMatrix();
 		gl.glTranslatef(pos.x,pos.y,pos.z);
+		float sc=0.03f*size;
+		gl.glScalef(sc,sc,sc);
+		float matAmbient[] = new float[] { 0.1f, 0.1f, .1f, 1f };
+		float matDiffuse[] = new float[] { is.x, is.y, is.z, 1 };
+		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT,matAmbient, 0);
+		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE,matDiffuse, 0);
 		super.draw(gl);
 		gl.glPopMatrix();
+		matAmbient = new float[] { 1f, 1f, 1f, 1f };
+		matDiffuse = new float[] { 1f, 1f, 1f, 1f };
+		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT,matAmbient, 0);
+		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE,matDiffuse, 0);
 	}
 }
 

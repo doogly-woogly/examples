@@ -31,26 +31,27 @@ class World {
 	public World() {
 		sphere.SubDivide(1);
 		//red eats green
-		Bacteria:bacterium.add(new Bacteria(1f,0,0, 0,1f,0, 1f,0,0));
+		Bacteria.bacterium.add(new Bacteria(1f,0,0, 0,1f,0, -1f,0,0));
 		//..eats blue
-		Bacteria:bacterium.add(new Bacteria(0,1f,0, 0,0,1f, 0,1f,0));
+		Bacteria.bacterium.add(new Bacteria(0,1f,0, 0,0,1f, 0,-1f,0));
 		//..eats red
-		Bacteria:bacterium.add(new Bacteria(0,0,1f, 1f,0,0, 0,0,1f));
+		Bacteria.bacterium.add(new Bacteria(0,0,1f, 1f,0,0, 0,0,-1f));
 	}
 	
 	public void Process(){
-		float fTime=0.1;//frame time
+		float fTime=0.1f;//frame time
 		//process bacteria
 //		for(Ti t:sphere.tris){
+			int len=Bacteria.bacterium.size();
 			for(int ba=0;ba<len;ba++){
-				bacterium[ba].Process(fTime);
+				Bacteria.bacterium.get(ba).Process(fTime);
 			
 			}
-			int len=bacterium.size();
+			len=Bacteria.bacterium.size();
 			for(int ba=0;ba<len;ba++){
 				for(int bb=ba+1;bb<len;bb++){
 					//collide spheres?
-					bacterium[ba].Collide(bb,fTime);
+					Bacteria.bacterium.get(ba).Collide(Bacteria.bacterium.get(bb),fTime);
 				}
 			}
 //		}
@@ -119,7 +120,8 @@ class World {
 		//breed bacteria
 	}
 	
-	public void draw(GL10 gl,float[] proj,float[] modl) {		
+	public void draw(GL10 gl,float[] proj,float[] modl) {
+		Process();
 		ExtractFrustum(gl,proj,modl);
 		//sphere.draw(gl);
 		for(Ti tri:sphere.tris){
@@ -130,7 +132,7 @@ class World {
 		}
 		}
 		
-		for(Bacteria B : (Bacteria:bacterium)){
+		for(Bacteria B : Bacteria.bacterium){
 			B.draw(gl);
 		}
 	}

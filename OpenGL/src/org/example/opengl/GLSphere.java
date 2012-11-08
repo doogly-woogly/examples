@@ -135,7 +135,7 @@ v.ae (   ( verts[t.vs[2]].s(verts[t.vs[1]])    ).d(idivs).m(iy)  );
 		if(!(ix==2&&iy==1))
 			n.obj=new GLSphere();
 			else
-		n.obj=new Bacteria();
+		n.obj=new GLSphere();
 		t.nodes.add(n);
 //		vertices.add(v);
 			}
