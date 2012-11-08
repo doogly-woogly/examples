@@ -202,7 +202,7 @@ v.ae (   ( verts[t.vs[2]].s(verts[t.vs[1]])    ).d(idivs).m(iy)  );
 		//	gl.glIndexPointer(3,GL10.GL_SHORT,0,mIndexBuffer);
 		
 //		gl.glNormal3f(0, 0, 1);
-		gl.glDrawElements(GL10.GL_TRIANGLES, 60,GL10.GL_UNSIGNED_SHORT,mIndexBuffer);
+		gl.glDrawElements(GL10.GL_TRIANGLES, 20,GL10.GL_UNSIGNED_SHORT,mIndexBuffer);
 		
 		gl.glPopMatrix();
 	}

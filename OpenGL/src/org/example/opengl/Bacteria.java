@@ -1,17 +1,10 @@
 package org.example.opengl;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.IntBuffer;
-
-import javax.microedition.khronos.opengles.GL10;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.opengl.GLUtils;
+import java.nio.*;
 import java.util.*;
+import javax.microedition.khronos.opengles.*;
 
-class Bacteria extends GLSphere{
+class Bacteria extends Entity{
 	public static List<Bacteria> bacterium=new ArrayList<Bacteria>();
 	private static float scale=0.25f;
 	private static float start=0.6f;
@@ -20,6 +13,11 @@ class Bacteria extends GLSphere{
 	private static float follow=0.01f;
 	private static float push=0.1f;
 	private static float eatEff=.7f;
+	
+	private static FloatBuffer mVertexBuffer;
+	private static ShortBuffer mIndexBuffer;
+	private static FloatBuffer mNormalBuffer;
+	
 	private V3 dir=new V3();
 	public V3 eats=new V3();
 	public V3 is=new V3();
@@ -155,7 +153,25 @@ class Bacteria extends GLSphere{
 		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT,matAmbient, 0);
 		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE,matDiffuse, 0);
 
-		super.draw(gl);
+		gl.glPushMatrix();
+		gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+		if (mNormalBuffer != null) {
+			// Enabled the normal buffer for writing and to be used during rendering.
+			gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
+
+			// Specifies the location and data format of an array of normals to use when rendering.
+			gl.glNormalPointer(GL10.GL_FLOAT, 0, mNormalBuffer);
+		}
+		//	gl.glEnableClientState(GL10.GL_INDEN_ARRAY);
+		gl.glScalef(1f,1f,1f);
+
+		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
+		//	gl.glIndexPointer(3,GL10.GL_SHORT,0,mIndexBuffer);
+
+//		gl.glNormal3f(0, 0, 1);
+		gl.glDrawElements(GL10.GL_TRIANGLES, 20,GL10.GL_UNSIGNED_SHORT,mIndexBuffer);
+
+		gl.glPopMatrix();
 		
 		gl.glPopMatrix();
 //		matAmbient = new float[] { 1f, 1f, 1f, 1f };
