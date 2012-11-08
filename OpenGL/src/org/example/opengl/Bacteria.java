@@ -137,6 +137,46 @@ class Bacteria extends Entity{
 		return bb.pos.s(pos).length()-(radius*scale+bb.radius*scale);
 	}
 	
+	private void BuildBuffers(){
+		int nVerts=36;
+		ByteBuffer vbb = ByteBuffer.allocateDirect(nVerts*4*3);
+		vbb.order(ByteOrder.nativeOrder());
+		mVertexBuffer = vbb.asFloatBuffer();
+		for(int i=0;i<nVerts;i++){
+			float a=(Math.pi*2)/nVerts*i;
+			V3 v=new V3(Math.sin(a),Math.cos(a),0);
+			mVertexBuffer.put(new float[]{v.x,v.y,v.z});
+		}
+		mVertexBuffer.position(0);
+		
+		vbb = ByteBuffer.allocateDirect(vertices.size()*4*3);
+		vbb.order(ByteOrder.nativeOrder());
+		mNormalBuffer = vbb.asFloatBuffer();
+		for(int i=0;i<vertices.size();i++){
+			V3 v=vertices.get(i);
+			v.norm();
+			mNormalBuffer.put(new float[]{v.x,v.y,v.z});
+		}
+		mNormalBuffer.position(0);
+		
+		mIndexBuffer = ByteBuffer.allocateDirect(tris.length * 2*3).order(ByteOrder.nativeOrder()).asShortBuffer();
+		for(int i=0;i<tris.length;i++){
+			Ti t=tris[i];
+			mIndexBuffer.put(t.vs);
+		}
+		mIndexBuffer.position(0);
+		
+		
+		
+		// ...
+		//ByteBuffer tbb = ByteBuffer.allocateDirect(texCoords.length * 4);
+		//tbb.order(ByteOrder.nativeOrder());
+		//mTextureBuffer = tbb.asIntBuffer();
+		//mTextureBuffer.put(texCoords);
+		//mTextureBuffer.position(0);
+		
+	}
+	
 	@Override
 	public void draw(GL10 gl){
 //		if(size<=0)return;
@@ -153,26 +193,16 @@ class Bacteria extends Entity{
 		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT,matAmbient, 0);
 		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE,matDiffuse, 0);
 
-		gl.glPushMatrix();
-		gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 		if (mNormalBuffer != null) {
-			// Enabled the normal buffer for writing and to be used during rendering.
 			gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
-
-			// Specifies the location and data format of an array of normals to use when rendering.
 			gl.glNormalPointer(GL10.GL_FLOAT, 0, mNormalBuffer);
 		}
 		//	gl.glEnableClientState(GL10.GL_INDEN_ARRAY);
-		gl.glScalef(1f,1f,1f);
 
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
 		//	gl.glIndexPointer(3,GL10.GL_SHORT,0,mIndexBuffer);
-
-//		gl.glNormal3f(0, 0, 1);
-		gl.glDrawElements(GL10.GL_TRIANGLES, 20,GL10.GL_UNSIGNED_SHORT,mIndexBuffer);
-
-		gl.glPopMatrix();
-		
+		//gl.glDrawElements(GL10.GL_TRIANGLES, 20,GL10.GL_UNSIGNED_SHORT,mIndexBuffer);
+		gl.glDrawArray();
 		gl.glPopMatrix();
 //		matAmbient = new float[] { 1f, 1f, 1f, 1f };
 //		matDiffuse = new float[] { 1f, 1f, 1f, 1f };
