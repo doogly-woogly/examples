@@ -71,7 +71,7 @@ class Bacteria extends GLSphere{
 			}
 				V3 dir=pos.s(bb.pos);
 				dir.norm();
-				dir.eq(dir.m(-0.1f));
+				dir.eq(dir.m(-0.3f));
 				bb.pos.ae(dir);
 				dir.eq(dir.m(-1));
 				pos.ae(dir);

@@ -115,6 +115,15 @@ class GLSphere extends Entity{
 	private void BuildAdjacent(){
 		
 	}
+	
+	public void NodeToTris(Node n){
+		for(Ti t:tris){
+			//ray
+			V3 p0=new V3(0,0,0);
+			V3 p1=new V3(n.pos);
+			
+		}
+	}
 
 	private void SubTri(Ti t,int idivs){	
 		int siv=0,ix,iy,iv=0;

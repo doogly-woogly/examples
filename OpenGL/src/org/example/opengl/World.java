@@ -31,9 +31,9 @@ class World {
 	public World() {
 		sphere.SubDivide(1);
 		//red eats green
-		Bacteria.bacterium.add(new Bacteria(1f,0,0, 0,1f,0, -1f,0,0));
+		Bacteria.bacterium.add(new Bacteria(1f,0,0, 0,1f,0, -0.3f,0,-1f));
 		//..eats blue
-		Bacteria.bacterium.add(new Bacteria(0,1f,0, 0,0,1f, 0,-1f,0));
+		Bacteria.bacterium.add(new Bacteria(0,1f,0, 0,0,1f, 0,-0.3f,-1f));
 		//..eats red
 		Bacteria.bacterium.add(new Bacteria(0,0,1f, 1f,0,0, 0,0,-1f));
 	}
