@@ -30,22 +30,30 @@ class World {
 	
 	public World() {
 		sphere.SubDivide(1);
-		/*V3 v=sphere.vertices.get(i);
-		for(int i=0;i<sphere.tris.size();i++){
-			Node n=new Node(v.x,v.y,v.z);
-			if(i==0){
-				n.obj=new Bacteria();
-			}else if(i<40){
-				n.obj=new GLCube();
-			}else{
-				n.obj=new GLSphere();
-			}
-			nodes.add(n);
-		}*/
+		//red eats green
+		Bacteria:bacterium.add(new Bacteria(1f,0,0, 0,1f,0, 1f,0,0));
+		//..eats blue
+		Bacteria:bacterium.add(new Bacteria(0,1f,0, 0,0,1f, 0,1f,0));
+		//..eats red
+		Bacteria:bacterium.add(new Bacteria(0,0,1f, 1f,0,0, 0,0,1f));
 	}
 	
 	public void Process(){
+		float fTime=0.1;//frame time
 		//process bacteria
+//		for(Ti t:sphere.tris){
+			for(int ba=0;ba<len;ba++){
+				bacterium[ba].Process(fTime);
+			
+			}
+			int len=bacterium.size();
+			for(int ba=0;ba<len;ba++){
+				for(int bb=ba+1;bb<len;bb++){
+					//collide spheres?
+					bacterium[ba].Collide(bb,fTime);
+				}
+			}
+//		}
 		//Bacteria:Process()
 /*		for(Ti t:sphere.tris){
 			for(int x=0;x<sphere.idivs;x++){
@@ -120,6 +128,10 @@ class World {
 				temp.draw(gl);
 			}
 		}
+		}
+		
+		for(Bacteria B : (Bacteria:bacterium)){
+			B.draw(gl);
 		}
 	}
 	

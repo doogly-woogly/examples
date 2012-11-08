@@ -17,10 +17,16 @@ class V3 {
 	public float lengthsquared(){
 		return (x*x+y*y+z*z);
 	}
+	public float length(){
+		return FloatMath.sqrt(x*x+y*y+z*z);
+	}
 	public V3 normed(){
 		V3 v=new V3(this);
 		v.norm();
 		return v;
+	}
+	public float sum(){
+		return x+y+z;
 	}
 	
 	
