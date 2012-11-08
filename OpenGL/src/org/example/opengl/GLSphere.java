@@ -133,7 +133,7 @@ v.ae (   ( verts[t.vs[2]].s(verts[t.vs[1]])    ).d(idivs).m(iy)  );
 		v.norm();
 		Node n=new Node(v.x,v.y,v.z);
 		if(!(ix==2&&iy==1))
-			n.obj=new GLCube();
+			n.obj=new GLSphere();
 			else
 		n.obj=new Bacteria();
 		t.nodes.add(n);

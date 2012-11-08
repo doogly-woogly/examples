@@ -38,7 +38,7 @@ class World {
 	}
 	
 	public World() {
-		sphere.SubDivide(8);
+		sphere.SubDivide(10);
 		/*V3 v=sphere.vertices.get(i);
 		for(int i=0;i<sphere.tris.size();i++){
 			Node n=new Node(v.x,v.y,v.z);
