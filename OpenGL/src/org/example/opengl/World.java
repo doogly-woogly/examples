@@ -1,12 +1,3 @@
-/***
-* Excerpted from "Hello, Android!",
-* published by The Pragmatic Bookshelf.
-* Copyrights apply to this code. It may not be used to create training material, 
-* courses, books, articles, and the like. Contact us if you are in doubt.
-* We make no guarantees that this code is fit for any purpose. 
-* Visit http://www.pragmaticprogrammer.com/titles/eband for more book information.
-***/
-
 package org.example.opengl;
 
 import java.nio.ByteBuffer;
@@ -38,7 +29,7 @@ class World {
 	}
 	
 	public World() {
-		sphere.SubDivide(10);
+		sphere.SubDivide(1);
 		/*V3 v=sphere.vertices.get(i);
 		for(int i=0;i<sphere.tris.size();i++){
 			Node n=new Node(v.x,v.y,v.z);
@@ -53,6 +44,72 @@ class World {
 		}*/
 	}
 	
+	public void Process(){
+		//process bacteria
+		//Bacteria:Process()
+		for(Ti t:sphere.tris){
+			for(int x=0;x<sphere.idivs;x++){
+				for(int y=0;y<x;y++){
+					if(y<x-1)
+						adj0=t.nodes[Math.factorial(x)+(y+1)].obj;
+					else{
+						//plus x triangle
+					}if(y>0)
+						adj1=t.nodes[Math.factorial(x)+(y-1)].obj;
+					else{
+						//minus x triangle
+					}if(x<sphere.idivs&&)
+						adj2=t.nodes[Math.factorial(x+1)+(y)].obj;
+					else{
+					}if(x<sphere.idivs&&y>0)
+						adj3=t.nodes[Math.factorial(x+1)+(y-1)].obj;
+					else{
+					}if(x>0)
+						adj4=t.nodes[Math.factorial(x-1)+(y)].obj;
+					else{
+					}if(x>0&&y<x-1)
+						adj5=t.nodes[Math.factorial(x-1)+(y+1)].obj;
+					else{
+					}
+					Node a=t.nodes[x*y].obj;//sphere.tris[t].nodes[n].obj;
+					Node b=adjacent;
+					if(a.Process(b)){
+						return;//true
+					}else if(b.Process(a)){
+						return;//true
+					}else{
+						//choose again?
+						return;//false
+					}
+				}
+			}
+			int len=t.nodes.size();
+			for(Node n:t.nodes){
+				int y=
+				//ns adjacent
+				/*if len ==3
+					   //0
+					   n+1
+					   //1
+					   n-1
+					   //2
+					   n+y-1
+					   //3
+					   n+y+1
+					   //4
+					   n-y-1
+					   //5
+					   n-y+1
+					   6
+				           10
+				           15
+				           21
+				           28
+				*/
+			}
+		}
+		//breed bacteria
+	}
 	
 	public void draw(GL10 gl,float[] proj,float[] modl) {		
 		ExtractFrustum(gl,proj,modl);
