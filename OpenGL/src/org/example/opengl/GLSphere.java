@@ -1,12 +1,3 @@
-/***
-* Excerpted from "Hello, Android!",
-* published by The Pragmatic Bookshelf.
-* Copyrights apply to this code. It may not be used to create training material, 
-* courses, books, articles, and the like. Contact us if you are in doubt.
-* We make no guarantees that this code is fit for any purpose. 
-* Visit http://www.pragmaticprogrammer.com/titles/eband for more book information.
-***/
-
 package org.example.opengl;
 
 import java.nio.ByteBuffer;
@@ -24,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.nio.*;
 import android.animation.*;
+import android.location.*;
 
 class GLSphere extends Entity{
 	private static FloatBuffer mVertexBuffer;
@@ -140,12 +132,8 @@ v.ae (   ( verts[t.vs[2]].s(verts[t.vs[1]])    ).d(idivs).m(iy)  );
 	
 	
 		v.norm();
-		Node n=new Node(v.x,v.y,v.z);
-		if(!(ix==2&&iy==1))
-			n.obj=new GLSphere();
-			else
-		n.obj=new GLSphere();
-		t.nodes.add(n);
+//		Node n=new Node(v.x,v.y,v.z);
+//		t.nodes.add(n);
 //		vertices.add(v);
 			}
 		}
@@ -213,7 +201,7 @@ v.ae (   ( verts[t.vs[2]].s(verts[t.vs[1]])    ).d(idivs).m(iy)  );
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
 		//	gl.glIndexPointer(3,GL10.GL_SHORT,0,mIndexBuffer);
 		
-		gl.glNormal3f(0, 0, 1);
+//		gl.glNormal3f(0, 0, 1);
 		gl.glDrawElements(GL10.GL_TRIANGLES, 60,GL10.GL_UNSIGNED_SHORT,mIndexBuffer);
 		
 		gl.glPopMatrix();

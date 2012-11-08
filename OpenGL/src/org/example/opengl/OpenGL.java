@@ -1,12 +1,3 @@
-/***
- * Excerpted from "Hello, Android!",
- * published by The Pragmatic Bookshelf.
- * Copyrights apply to this code. It may not be used to create training material, 
- * courses, books, articles, and the like. Contact us if you are in doubt.
- * We make no guarantees that this code is fit for any purpose. 
- * Visit http://www.pragmaticprogrammer.com/titles/eband for more book information.
-***/
-
 package org.example.opengl;
 
 import android.app.Activity;
@@ -63,7 +54,7 @@ public class OpenGL extends Activity {
 		
 		private Location currentLocation;
 		
-		private static final int avg=7;
+		private static final int avg=11;
 		private int iavg=0;
 		private static final float grav[][] = new float[avg][3]; //Gravity (a.k.a accelerometer data)
 		private static final float mag[][] = new float[avg][3]; //Magnetic 

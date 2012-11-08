@@ -10,35 +10,39 @@ import android.content.Context;
 import android.opengl.GLUtils;
 
 import java.util.ArrayList;
-
-import android.widget.Toast;
+import java.util.*;
 
 class Node {
-  public float[] pos=new float[3];
-  public Entity obj;
+  public V3 pos=new V3();
+  public List<Entity> objs=new ArrayList<Entity>();
+  private float radius=0.74f;
    public Node(float x,float y,float z) {
-   	   pos[0]=x;
-   	   pos[1]=y;
-   	   pos[2]=z;
+   	   pos.x=x;
+   	   pos.y=y;
+   	   pos.z=z;
    }
    
 
    public void draw(GL10 gl) {
-   	 //    Toast toast=Toast.makeText(getApplicationContext(), "All hail King Julien", Toast.LENGTH_LONG);  
-       //     toast.show();  
    	   gl.glPushMatrix();
-   	   gl.glTranslatef(pos[0],pos[1],pos[2]);
-	   float s=0.031f;
-	   gl.glScalef(s,s,s);
-   	   if(obj!=null)obj.draw(gl);
+  // 	   gl.glTranslatef(pos.x,pos.y,pos.z);
+//	   float s=radius;
+	//   gl.glScalef(s,s,s);
+	   for(Entity obj:objs){
+		   if(obj.rendered==true||obj.radius<=0)continue;
+   	  	 obj.draw(gl);
+		 obj.rendered=true;
+		 }
    	   gl.glPopMatrix();
    }
-
-   private Context getApplicationContext()
-   {
-	   // TODO: Implement this method
-	   return null;
-   }
+	public boolean Add(Entity e){
+		if(e.pos.s(pos).lengthsquared()-(radius*radius+e.radius*e.radius)<=0){
+//			objs.remove(e);
+			objs.add(e);
+			return true;
+		}
+		return false;
+	}
    
    
 }

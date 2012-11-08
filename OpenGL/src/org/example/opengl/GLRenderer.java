@@ -1,12 +1,3 @@
-/***
-* Excerpted from "Hello, Android!",
-* published by The Pragmatic Bookshelf.
-* Copyrights apply to this code. It may not be used to create training material, 
-* courses, books, articles, and the like. Contact us if you are in doubt.
-* We make no guarantees that this code is fit for any purpose. 
-* Visit http://www.pragmaticprogrammer.com/titles/eband for more book information.
-***/
-
 package org.example.opengl;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -33,7 +24,11 @@ class GLRenderer implements GLSurfaceView.Renderer {
 	private float mFOV=60.0f,mAspect=1.0f,mNear=0.1f,mFar=100f;
         private float[] mProjectionMatrix = new float[16];
         private float[] mViewMatrix = new float[16];
-        private float[] mViewProjectionMatrix = new float[16];
+	private float[] mViewProjectionMatrix = new float[16];
+
+	private float[] mLightVector=new float[]{1,1,1};
+
+	private float[] mTransformedLightVector=new float[4];
 	
 	
 	
@@ -78,18 +73,32 @@ class GLRenderer implements GLSurfaceView.Renderer {
 			mViewMatrix[14]=m[14];
 			mViewMatrix[15]=m[15];
 			
-		//	updateMatrices();
+			
+	/*	mTransformedLightVector[0] =
+			mViewMatrix[0] * mLightVector[0] +
+			mViewMatrix[1] * mLightVector[1] +
+			mViewMatrix[2] * mLightVector[2];
+		mTransformedLightVector[1] =
+			mViewMatrix[4] * mLightVector[0] +
+			mViewMatrix[5] * mLightVector[1] +
+			mViewMatrix[6] * mLightVector[2];
+		mTransformedLightVector[2] =
+			mViewMatrix[8] * mLightVector[0] +
+			mViewMatrix[9] * mLightVector[1] +
+			mViewMatrix[10] * mLightVector[2];*/
+			mTransformedLightVector[0]=0;
+
+		mTransformedLightVector[1]=0;
+
+		mTransformedLightVector[2]=1.1f;
+		
+		mTransformedLightVector[3]=1;
 	}
 	
 	
 	
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-		
-		// ...
-		
-		
-		
-		boolean SEE_THRU = true;
+		boolean SEE_THRU = false;
 		
 		
 		startTime = System.currentTimeMillis();
@@ -100,13 +109,13 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		
 		// Define the lighting
 		float lightAmbient[] = new float[] { 0.2f, 0.2f, 0.2f, 1 };
-		float lightDiffuse[] = new float[] { 1, 1, 1, 1 };
-		float[] lightPos = new float[] { 1, 1, 1, 1 };
+		float lightDiffuse[] = new float[] { 0.8f, 0.8f, 0.8f, 1 };
+
 		gl.glEnable(GL10.GL_LIGHTING);
 		gl.glEnable(GL10.GL_LIGHT0);
 		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_AMBIENT, lightAmbient, 0);
 		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_DIFFUSE, lightDiffuse, 0);
-		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_POSITION, lightPos, 0);
+
 		
 		
 		
@@ -141,6 +150,8 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		gl.glEnable(GL10.GL_TEXTURE_2D);
 		gl.glDisable(GL10.GL_CULL_FACE);
 		
+		gl.glEnable(gl.GL_CULL_FACE);
+		gl.glCullFace(gl.GL_BACK);
 		
 		// Load the cube's texture from a bitmap
 		world.Load(gl,context);
@@ -150,25 +161,17 @@ class GLRenderer implements GLSurfaceView.Renderer {
 	
 	
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
-		
-		// ...
-		
-		
 		// Define the view frustum
 		Matrix.setIdentityM(mViewMatrix, 0);
 		gl.glViewport(0, 0, width, height);
 		gl.glMatrixMode(GL10.GL_PROJECTION);
 		gl.glLoadIdentity();
-		float mAspect = (float) width / height;
+		mAspect = (float) width / height;
 		perspectiveM(mProjectionMatrix, (float)Math.toRadians(mFOV), mAspect, mNear, mFar);
-//		Matrix.multiplyMM(mViewProjectionMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
 		gl.glLoadMatrixf(mProjectionMatrix,0);
-//		updateMatrices(gl);
 //		GLU.gluPerspective(gl, 45.0f, mAspect, 0.1f, 2f); 
 		
 	}
-	
-	private void updateMatrices(GL10 gl) {   }
 	
 	
 	
@@ -183,18 +186,23 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 //		Matrix.setIdentityM(mViewMatrix, 0);
 
-//		gl.glLoadIdentity();
+		gl.glLoadIdentity();
 //		Matrix.setIdentityM(mViewMatrix, 0);
 //		long elapsed = System.currentTimeMillis() - startTime;
-//		gl.glTranslatef(0, 0, -5);
+		if(World.inside)	
+			gl.glTranslatef(0, 0, -.8f);
+		else
+			gl.glTranslatef(0,0,-2.5f);
 //		Matrix.translateM(mViewMatrix, 0, 0, 0, -5);
-		 
+//		 Matrix.invertM(mViewMatrix,0,mViewMatrix,0);
 //		gl.glRotatef(elapsed * (30f / 1000f), 0, 1, 0);
 //		gl.glRotatef(elapsed * (15f / 1000f), 1, 0, 0);
 //		 Matrix.rotateM(mViewMatrix, 0, elapsed*(30f/1000f), 0, 1, 0);
 //		 Matrix.rotateM(mViewMatrix, 0, elapsed*(15f/1000f), 1, 0, 0);
-		gl.glLoadMatrixf(mViewMatrix,0);
-		
+		gl.glMultMatrixf(mViewMatrix,0);
+//		gl.glTranslatef(0,0,-3);
+	//	float[] lightPos = new float[] { -mViewMatrix[0], -mViewMatrix[1], -mViewMatrix[2], 1 };
+		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_POSITION, mTransformedLightVector, 0);
 		// Other drawing commands go here...
 	
 		

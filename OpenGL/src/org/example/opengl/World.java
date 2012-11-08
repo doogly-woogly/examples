@@ -17,124 +17,100 @@ import android.opengl.Matrix;
 import android.util.*;
 
 class World {
-	private final GLCube cube = new GLCube();
 	private final GLSphere sphere = new GLSphere();
 	private float frustum[][]=new float[6][4];
+	public static boolean inside=true;
 	
-	private List<Node> nodes = new ArrayList<Node>();
+	private static List<Node> nodes = new ArrayList<Node>();
 	
 	public void Load(GL10 gl,Context context){
 		GLCube.loadTexture(gl, context, R.drawable.android);
 		GLSphere.loadTexture(gl, context, R.drawable.android);
 	}
 	
+	public static void Add(Entity e){
+		for(Node n:nodes){
+			n.objs.remove(e);
+		}
+		for(Node n:nodes){
+			if(n.Add(e));//return;
+		}
+	}
+	
 	public World() {
 		sphere.SubDivide(1);
+		for(V3 v:sphere.vertices){
+			nodes.add(new Node(v.x,v.y,v.z));
+		}
 		//red eats green
-		Bacteria.bacterium.add(new Bacteria(1f,0,0, 0,1f,0, -0.3f,0,-1f));
+		float p3=0.7f;
+		float p4=.5f;
+		Bacteria.bacterium.add(new Bacteria(1f,0,0, 0,1f,0, 0,0,1f));
+		Bacteria.bacterium.add(new Bacteria(1f,0,0, 0,1f,0, 0,0,-1f));
 		//..eats blue
-		Bacteria.bacterium.add(new Bacteria(0,1f,0, 0,0,1f, 0,-0.3f,-1f));
+		Bacteria.bacterium.add(new Bacteria(0,1f,0, 0,0,1f, 0,1f,0));
+		Bacteria.bacterium.add(new Bacteria(0,1f,0, 0,0,1f, 0,-1f,0));
 		//..eats red
-		Bacteria.bacterium.add(new Bacteria(0,0,1f, 1f,0,0, 0,0,-1f));
+		Bacteria.bacterium.add(new Bacteria(0,0,1f, 1f,0,0, 1,0,0));
+		Bacteria.bacterium.add(new Bacteria(0,0,1f, 1f,0,0, -1f,0,0));
 	}
 	
 	public void Process(){
+		Frame.Get();
 		float fTime=0.1f;//frame time
 		//process bacteria
-//		for(Ti t:sphere.tris){
-			int len=Bacteria.bacterium.size();
-			for(int ba=0;ba<len;ba++){
-				Bacteria.bacterium.get(ba).Process(fTime);
-			
+		if(Frame.count%50==0){
+			for(Node n:nodes){
+				n.objs.clear();
 			}
-			len=Bacteria.bacterium.size();
+			for(Bacteria b:Bacteria.bacterium){
+				Add(b);
+			}
+		}
+		int len=Bacteria.bacterium.size();
+		for(int ba=0;ba<Bacteria.bacterium.size();ba++){//}Bacteria b:Bacteria.bacterium){
+			if(!Bacteria.bacterium.get(ba).Process(fTime))
+				ba--;//b.Process(fTime);
+		}
+		for(Node n:nodes){
+			len=n.objs.size();
 			for(int ba=0;ba<len;ba++){
 				for(int bb=ba+1;bb<len;bb++){
 					//collide spheres?
-					Bacteria.bacterium.get(ba).Collide(Bacteria.bacterium.get(bb),fTime);
+					n.objs.get(ba).Collide(n.objs.get(bb),fTime);
 				}
 			}
-//		}
-		//Bacteria:Process()
-/*		for(Ti t:sphere.tris){
-			for(int x=0;x<sphere.idivs;x++){
-				for(int y=0;y<x;y++){
-					if(y<x-1)
-						adj0=t.nodes[Math.factorial(x)+(y+1)].obj;
-					else{
-						//plus x triangle
-					}if(y>0)
-						adj1=t.nodes[Math.factorial(x)+(y-1)].obj;
-					else{
-						//minus x triangle
-					}if(x<sphere.idivs&&)
-						adj2=t.nodes[Math.factorial(x+1)+(y)].obj;
-					else{
-					}if(x<sphere.idivs&&y>0)
-						adj3=t.nodes[Math.factorial(x+1)+(y-1)].obj;
-					else{
-					}if(x>0)
-						adj4=t.nodes[Math.factorial(x-1)+(y)].obj;
-					else{
-					}if(x>0&&y<x-1)
-						adj5=t.nodes[Math.factorial(x-1)+(y+1)].obj;
-					else{
-					}
-					Node a=t.nodes[x*y].obj;//sphere.tris[t].nodes[n].obj;
-					Node b=adjacent;
-					if(a.Process(b)){
-						return;//true
-					}else if(b.Process(a)){
-						return;//true
-					}else{
-						//choose again?
-						return;//false
-					}
-				}
-			}*/
-///			int len=t.nodes.size();
-//			for(Node n:t.nodes){
-	//			int y=
-				//ns adjacent
-				/*if len ==3
-					   //0
-					   n+1
-					   //1
-					   n-1
-					   //2
-					   n+y-1
-					   //3
-					   n+y+1
-					   //4
-					   n-y-1
-					   //5
-					   n-y+1
-					   6
-				           10
-				           15
-				           21
-				           28
-				*/
-//			}
-//		}
-		//breed bacteria
+		}
 	}
 	
 	public void draw(GL10 gl,float[] proj,float[] modl) {
 		Process();
 		ExtractFrustum(gl,proj,modl);
-		//sphere.draw(gl);
-		for(Ti tri:sphere.tris){
-		for (Node temp : tri.nodes) {
+		gl.glPushMatrix();
+		if(inside)
+		gl.glScalef(1.5f,1.5f,1.5f);
+		else
+		gl.glScalef(0.8f,.8f,.8f);
+		float matAmbient[] = new float[] { 0.15f, 0.15f, .15f, 1f };
+		float o=0.6f;
+		float matDiffuse[] = new float[] { 1f, 1f, 1f, 1 };
+		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT,matAmbient, 0);
+		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE,matDiffuse, 0);
+		if(inside)gl.glCullFace(gl.GL_FRONT);
+		sphere.draw(gl);
+		if(inside)gl.glCullFace(gl.GL_BACK);
+		
+		gl.glPopMatrix();
+//		for(Ti tri:sphere.tris){
+		for (Node temp : nodes) {
 			if(PointInFrustum(temp.pos,1)){
 				temp.draw(gl);
 			}
 		}
-		}
 		
-		for(Bacteria B : Bacteria.bacterium){
-			B.draw(gl);
-		}
+//		for(Bacteria B : Bacteria.bacterium){
+//			B.draw(gl);
+//		}
 	}
 	
 	public void ExtractFrustum(GL10 gl,float[] proj,float[] modl){
@@ -242,11 +218,11 @@ class World {
 		frustum[5][3] /= t;
 	}
 	
-	boolean PointInFrustum( float[] x,float radius ){
+	boolean PointInFrustum( V3 x,float radius ){
 		int p;
 		
-		for( p = 0; p < 6; p++ )
-			if( frustum[p][0] * x[0] + frustum[p][1] * x[1] + frustum[p][2] * x[2] + frustum[p][3] <-radius )
+		for( p = 0; p < 5; p++ )
+			if( frustum[p][0] * x.x + frustum[p][1] * x.y + frustum[p][2] * x.z + frustum[p][3] <=-radius )
 				return false;
 		return true;
 	}
