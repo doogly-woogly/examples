@@ -313,11 +313,11 @@ public class OpenGL extends Activity {
 				final float x = e.getX()/dm.widthPixels-0.5f;
 				final float y = e.getY()/dm.heightPixels-0.5f;
 				float tV[]=new float[4];
-				float tR[]=new float[4];
+				final float tR[]=new float[4];
 				//point forwards
-				tV[0]=-x;
-				tV[1]=y;
-				tV[2]=0.5f;//near clip
+				tV[0]=x*mRenderer.mAspect;
+				tV[1]=-y;
+				tV[2]=-0.5f;//near clip
 				//build direction vector
 				float invRot[]=new float[16];
 				Matrix.invertM(invRot,0,rotation,0);
@@ -326,11 +326,15 @@ public class OpenGL extends Activity {
 				tR[0]/=l;
 				tR[1]/=l;
 				tR[2]/=l;
-				
+				/*
 				tR[0]*=10;
 				tR[1]*=10;
 				tR[2]*=10;
-				
+				*/
+	
+	//			b.render=new V3(.6f,0,.6f);
+		//		World.Add(b);
+//				Bacteria.bacterium.add(b);
 				//queueEvent(new Runnable() { public void run() {mRenderer.addCell(tR);  }});
 				Toast.makeText(getApplicationContext(), String.valueOf(tR[0])+' '+String.valueOf(tR[1])+' '+String.valueOf(tR[2]), Toast.LENGTH_SHORT).show();
 				
@@ -346,13 +350,14 @@ public class OpenGL extends Activity {
 							// the tap (or in a small neighborhood if nothing is
 							// below the tap). Map the color back to the object.
 							// mRenderer.getEntityAt(x, y);
-							
+							World.Spawn(tR[0],tR[1],tR[2]);
 							// ...once that's done, post the result back to the UI
 							// thread:
 							getHandler().post(new Runnable() {
 									@Override
 									public void run() {
 										// ...
+								
 							}});
 				}});
 				return true;

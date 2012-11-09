@@ -21,7 +21,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 	private long fpsStartTime;
 	private long numFrames;
 	
-	private float mFOV=60.0f,mAspect=1.0f,mNear=0.1f,mFar=100f;
+	public float mFOV=60.0f,mAspect=1.0f,mNear=0.1f,mFar=4f;
         private float[] mProjectionMatrix = new float[16];
         private float[] mViewMatrix = new float[16];
 	private float[] mViewProjectionMatrix = new float[16];
@@ -74,7 +74,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 			mViewMatrix[15]=m[15];
 			
 			
-	/*	mTransformedLightVector[0] =
+		mTransformedLightVector[0] =
 			mViewMatrix[0] * mLightVector[0] +
 			mViewMatrix[1] * mLightVector[1] +
 			mViewMatrix[2] * mLightVector[2];
@@ -85,14 +85,17 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		mTransformedLightVector[2] =
 			mViewMatrix[8] * mLightVector[0] +
 			mViewMatrix[9] * mLightVector[1] +
-			mViewMatrix[10] * mLightVector[2];*/
+			mViewMatrix[10] * mLightVector[2];
+			mTransformedLightVector[2]=0;//*/
+			
+			/*
 			mTransformedLightVector[0]=0;
 
 		mTransformedLightVector[1]=0;
 
-		mTransformedLightVector[2]=1.1f;
+		mTransformedLightVector[2]=Bacteria.scale+.01f;
 		
-		mTransformedLightVector[3]=1;
+		mTransformedLightVector[3]=1;//*/
 	}
 	
 	
@@ -108,8 +111,8 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		
 		
 		// Define the lighting
-		float lightAmbient[] = new float[] { 0.2f, 0.2f, 0.2f, 1 };
-		float lightDiffuse[] = new float[] { 0.8f, 0.8f, 0.8f, 1 };
+		float lightAmbient[] = new float[] { 0.01f, 0.1f, 0.06f, 1 };
+		float lightDiffuse[] = new float[] { 0.5f, 0.5f, 0.5f, 1 };
 
 		gl.glEnable(GL10.GL_LIGHTING);
 		gl.glEnable(GL10.GL_LIGHT0);
@@ -153,6 +156,8 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		gl.glEnable(gl.GL_CULL_FACE);
 		gl.glCullFace(gl.GL_BACK);
 		
+//		gl.glShadeModel(GL10.GL_FLAT);
+		
 		// Load the cube's texture from a bitmap
 		world.Load(gl,context);
 	}
@@ -190,7 +195,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 //		Matrix.setIdentityM(mViewMatrix, 0);
 //		long elapsed = System.currentTimeMillis() - startTime;
 		if(World.inside)	
-			gl.glTranslatef(0, 0, -.8f);
+			gl.glTranslatef(0, 0, -Bacteria.scale);
 		else
 			gl.glTranslatef(0,0,-2.5f);
 //		Matrix.translateM(mViewMatrix, 0, 0, 0, -5);
@@ -212,7 +217,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		
 		
 		// Keep track of number of frames drawn
-		numFrames++;
+/*		numFrames++;
 		long fpsElapsed = System.currentTimeMillis() - fpsStartTime;
 		if (fpsElapsed > 5 * 1000) { // every 5 seconds
 			float fps = (numFrames * 1000.0F) / fpsElapsed;
@@ -221,7 +226,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 			fpsStartTime = System.currentTimeMillis();
 			numFrames = 0;
 		}
-		
+		*/
 		
 		
 		

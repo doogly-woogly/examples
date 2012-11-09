@@ -20,9 +20,21 @@ class World {
 	private final GLSphere sphere = new GLSphere();
 	private float frustum[][]=new float[6][4];
 	public static boolean inside=true;
+	public static int idivs=2;
 	
-	private static List<Node> nodes = new ArrayList<Node>();
+	public static ArrayList<Node> nodes = new ArrayList<Node>();
 	
+	public static void Spawn(float x,float y,float z){
+		if(!inside){
+			x*=-1;
+			y*=-1;
+			z*=-1;
+		}
+		Bacteria b=new Bacteria(1,1,1, .3f,.3f,.3f, x,y,z);
+		b.render=new V3(.6f,0,.6f);
+		b.radius=2f;
+		Bacteria.bacterium.add(b);
+	}
 	public void Load(GL10 gl,Context context){
 		GLCube.loadTexture(gl, context, R.drawable.android);
 		GLSphere.loadTexture(gl, context, R.drawable.android);
@@ -33,39 +45,49 @@ class World {
 			n.objs.remove(e);
 		}
 		for(Node n:nodes){
-			if(n.Add(e));//return;
+			n.Add(e);//return;
 		}
 	}
 	
 	public World() {
-		sphere.SubDivide(1);
+		sphere.SubDivide(idivs);
 		for(V3 v:sphere.vertices){
 			nodes.add(new Node(v.x,v.y,v.z));
 		}
 		//red eats green
 		float p3=0.7f;
 		float p4=.5f;
-		Bacteria.bacterium.add(new Bacteria(1f,0,0, 0,1f,0, 0,0,1f));
+		for(float ix=-1;ix<=1;ix+=2){
+			Bacteria b=new Bacteria(1,0,0, 0,1,0, ix,0,0);
+			b.render=new V3(.85f,.1f,.0f);
+			Bacteria.bacterium.add(b);
+			}
+			for(float iy=-1;iy<=1;iy+=2){
+				Bacteria b=new Bacteria(0,1f,0, 0,0,1, 0,iy,0);
+				b.render=new V3(.2f,.7f,.2f);
+				Bacteria.bacterium.add(b);
+				}
+				for(float iz=-1;iz<=1;iz+=2){
+			Bacteria b=new Bacteria(0,0,1, 1,0,0, 0,0,iz);
+			b.render=new V3(.3f,.4f,.9f);
+			Bacteria.bacterium.add(b);
+		}
+/*		Bacteria.bacterium.add(new Bacteria(1f,0,0, 0,1f,0, 0,0,1f));
 		Bacteria.bacterium.add(new Bacteria(1f,0,0, 0,1f,0, 0,0,-1f));
 		//..eats blue
 		Bacteria.bacterium.add(new Bacteria(0,1f,0, 0,0,1f, 0,1f,0));
 		Bacteria.bacterium.add(new Bacteria(0,1f,0, 0,0,1f, 0,-1f,0));
 		//..eats red
 		Bacteria.bacterium.add(new Bacteria(0,0,1f, 1f,0,0, 1,0,0));
-		Bacteria.bacterium.add(new Bacteria(0,0,1f, 1f,0,0, -1f,0,0));
+		Bacteria.bacterium.add(new Bacteria(0,0,1f, 1f,0,0, -1f,0,0));*/
 	}
 	
 	public void Process(){
 		Frame.Get();
 		float fTime=0.1f;//frame time
 		//process bacteria
-		if(Frame.count%50==0){
-			for(Node n:nodes){
-				n.objs.clear();
-			}
-			for(Bacteria b:Bacteria.bacterium){
-				Add(b);
-			}
+		if(Frame.count%100==0){
+			nodes.trimToSize();
 		}
 		int len=Bacteria.bacterium.size();
 		for(int ba=0;ba<Bacteria.bacterium.size();ba++){//}Bacteria b:Bacteria.bacterium){
@@ -221,7 +243,7 @@ class World {
 	boolean PointInFrustum( V3 x,float radius ){
 		int p;
 		
-		for( p = 0; p < 5; p++ )
+		for( p = 5; p >= 0; p-- )
 			if( frustum[p][0] * x.x + frustum[p][1] * x.y + frustum[p][2] * x.z + frustum[p][3] <=-radius )
 				return false;
 		return true;

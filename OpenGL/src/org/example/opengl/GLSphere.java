@@ -134,7 +134,7 @@ v.ae (   ( verts[t.vs[2]].s(verts[t.vs[1]])    ).d(idivs).m(iy)  );
 		v.norm();
 //		Node n=new Node(v.x,v.y,v.z);
 //		t.nodes.add(n);
-//		vertices.add(v);
+		vertices.add(v);
 			}
 		}
 /*		
@@ -186,7 +186,7 @@ v.ae (   ( verts[t.vs[2]].s(verts[t.vs[1]])    ).d(idivs).m(iy)  );
 	
 	@Override
 	public void draw(GL10 gl) {
-		gl.glPushMatrix();
+//		gl.glPushMatrix();
 		gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 		if (mNormalBuffer != null) {
 			// Enabled the normal buffer for writing and to be used during rendering.
@@ -196,15 +196,15 @@ v.ae (   ( verts[t.vs[2]].s(verts[t.vs[1]])    ).d(idivs).m(iy)  );
 			gl.glNormalPointer(GL10.GL_FLOAT, 0, mNormalBuffer);
 		}
 		//	gl.glEnableClientState(GL10.GL_INDEN_ARRAY);
-		gl.glScalef(1f,1f,1f);
+//		gl.glScalef(1f,1f,1f);
 		
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
 		//	gl.glIndexPointer(3,GL10.GL_SHORT,0,mIndexBuffer);
 		
 //		gl.glNormal3f(0, 0, 1);
-		gl.glDrawElements(GL10.GL_TRIANGLES, 20,GL10.GL_UNSIGNED_SHORT,mIndexBuffer);
+		gl.glDrawElements(GL10.GL_TRIANGLES, 60,GL10.GL_UNSIGNED_SHORT,mIndexBuffer);
 		
-		gl.glPopMatrix();
+//		gl.glPopMatrix();
 	}
 	
 	
