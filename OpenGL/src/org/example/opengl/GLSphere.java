@@ -17,15 +17,16 @@ import java.nio.*;
 import android.animation.*;
 import android.location.*;
 
-class GLSphere extends Entity{
-	private static FloatBuffer mVertexBuffer;
-	private static ShortBuffer mIndexBuffer;
-	private static FloatBuffer mNormalBuffer;
+class GLSphere{
+	public FloatBuffer mVertexBuffer;
+	public ShortBuffer mIndexBuffer;
+	public FloatBuffer mNormalBuffer;
 	
 	public Ti[] tris;
-	public static List<V3> vertices = new ArrayList<V3>();
+	public List<V3> vertices = new ArrayList<V3>();
 	
-	public GLSphere() {
+	public GLSphere() {Build();}
+	public void Build(){
 		float one = 1;
 		float gold = (float)((double)one/1.61803398875);
 		float half = one / 2;
@@ -162,7 +163,7 @@ v.ae (   ( verts[t.vs[2]].s(verts[t.vs[1]])    ).d(idivs).m(iy)  );
 		for(int i=0;i<tris.length;i++){
 			SubTri(tris[i],iDivs);
 		}
-		MergeVerts(0,0.001f);
+		MergeVerts(0,0);
 		BuildBuffers();
 	}
 	

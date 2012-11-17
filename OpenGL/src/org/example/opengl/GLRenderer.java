@@ -26,7 +26,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
         private float[] mViewMatrix = new float[16];
 	private float[] mViewProjectionMatrix = new float[16];
 
-	private float[] mLightVector=new float[]{1,1,1};
+	public static float[] mLightVector=new float[]{1,1,1,0};
 
 	private float[] mTransformedLightVector=new float[4];
 	
@@ -86,7 +86,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 			mViewMatrix[8] * mLightVector[0] +
 			mViewMatrix[9] * mLightVector[1] +
 			mViewMatrix[10] * mLightVector[2];
-			mTransformedLightVector[2]=0;//*/
+			mTransformedLightVector[2]=1;//*/
 			
 			/*
 			mTransformedLightVector[0]=0;
@@ -111,7 +111,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		
 		
 		// Define the lighting
-		float lightAmbient[] = new float[] { 0.01f, 0.1f, 0.06f, 1 };
+		float lightAmbient[] = new float[] { 0.01f, 0.1f, 0.01f, 1 };
 		float lightDiffuse[] = new float[] { 0.5f, 0.5f, 0.5f, 1 };
 
 		gl.glEnable(GL10.GL_LIGHTING);
@@ -159,7 +159,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 //		gl.glShadeModel(GL10.GL_FLAT);
 		
 		// Load the cube's texture from a bitmap
-		world.Load(gl,context);
+		World.Load(gl,context);
 	}
 	
 	
@@ -214,7 +214,7 @@ class GLRenderer implements GLSurfaceView.Renderer {
 		// Draw the model
 		world.draw(gl,mProjectionMatrix,mViewMatrix);
 		
-		
+		World.player.draw(gl);
 		
 		// Keep track of number of frames drawn
 /*		numFrames++;

@@ -30,26 +30,18 @@ class Node {
    
 
    public void draw(GL10 gl) {
-   	   gl.glPushMatrix();
-  // 	   gl.glTranslatef(pos.x,pos.y,pos.z);
-//	   float s=radius;
-	//   gl.glScalef(s,s,s);
 	   for(Entity obj:objs){
 		   if(obj.rendered==true||obj.radius<=0)continue;
    	  	 obj.draw(gl);
 		 obj.rendered=true;
 		 }
-   	   gl.glPopMatrix();
    }
 	public boolean Add(Entity e){
-		if(e.pos.s(pos).lengthsquared()<=(radius*radius+e.radius*e.radius)){
-//			objs.remove(e);
+		if(e.pos.s(this.pos).lengthsquared()<=(radius*radius+e.radius*e.radius)){
 			objs.add(e);
 			return true;
 		}
 		return false;
 	}
-   
-   
 }
 

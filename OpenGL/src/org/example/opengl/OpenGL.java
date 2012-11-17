@@ -336,7 +336,7 @@ public class OpenGL extends Activity {
 		//		World.Add(b);
 //				Bacteria.bacterium.add(b);
 				//queueEvent(new Runnable() { public void run() {mRenderer.addCell(tR);  }});
-				Toast.makeText(getApplicationContext(), String.valueOf(tR[0])+' '+String.valueOf(tR[1])+' '+String.valueOf(tR[2]), Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getApplicationContext(), String.valueOf(tR[0])+' '+String.valueOf(tR[1])+' '+String.valueOf(tR[2]), Toast.LENGTH_SHORT).show();
 				
 				// Run something on the render thread...
 				queueEvent(new Runnable(){

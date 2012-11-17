@@ -17,25 +17,19 @@ import android.opengl.Matrix;
 import android.util.*;
 
 class World {
-	private final GLSphere sphere = new GLSphere();
+	public static final GLSphere sphereBac = new GLSphere();
+	public static final GLSphere sphere=new GLSphere();
 	private float frustum[][]=new float[6][4];
 	public static boolean inside=true;
 	public static int idivs=2;
+	public static Player player=new Player();
 	
 	public static ArrayList<Node> nodes = new ArrayList<Node>();
 	
 	public static void Spawn(float x,float y,float z){
-		if(!inside){
-			x*=-1;
-			y*=-1;
-			z*=-1;
-		}
-		Bacteria b=new Bacteria(1,1,1, .3f,.3f,.3f, x,y,z);
-		b.render=new V3(.6f,0,.6f);
-		b.radius=2f;
-		Bacteria.bacterium.add(b);
+		player.Place(new V3(x,y,z));
 	}
-	public void Load(GL10 gl,Context context){
+	public static void Load(GL10 gl,Context context){
 		GLCube.loadTexture(gl, context, R.drawable.android);
 		GLSphere.loadTexture(gl, context, R.drawable.android);
 	}
@@ -50,6 +44,7 @@ class World {
 	}
 	
 	public World() {
+		Bacteria.SetMode(0);
 		sphere.SubDivide(idivs);
 		for(V3 v:sphere.vertices){
 			nodes.add(new Node(v.x,v.y,v.z));
@@ -58,47 +53,42 @@ class World {
 		float p3=0.7f;
 		float p4=.5f;
 		for(float ix=-1;ix<=1;ix+=2){
-			Bacteria b=new Bacteria(1,0,0, 0,1,0, ix,0,0);
-			b.render=new V3(.85f,.1f,.0f);
-			Bacteria.bacterium.add(b);
+			Bacteria b=new Red(ix,0,0);
+//			b.eats.randPos();b.render.randPos();b.is.eq(b.render);
+//			b.render=new V3(.85f,.1f,.0f);
+			Bacteria.Append(b);
 			}
 			for(float iy=-1;iy<=1;iy+=2){
-				Bacteria b=new Bacteria(0,1f,0, 0,0,1, 0,iy,0);
-				b.render=new V3(.2f,.7f,.2f);
-				Bacteria.bacterium.add(b);
+				Bacteria b=new Green(0f,iy,0f);//Bacteria(0,1f,0, 0,0,1, 0,iy,0);
+//				b.render=new V3(.2f,.7f,.2f);
+//				b.eats.randPos();b.render.randPos();b.is.eq(b.render);
+				Bacteria.Append(b);
 				}
 				for(float iz=-1;iz<=1;iz+=2){
-			Bacteria b=new Bacteria(0,0,1, 1,0,0, 0,0,iz);
-			b.render=new V3(.3f,.4f,.9f);
-			Bacteria.bacterium.add(b);
+			Bacteria b=new Blue(0,0,iz);
+//					b.eats.randPos();b.render.randPos();b.is.eq(b.render);
+//			b.render=new V3(.3f,.4f,.9f);
+			Bacteria.Append(b);
 		}
-/*		Bacteria.bacterium.add(new Bacteria(1f,0,0, 0,1f,0, 0,0,1f));
-		Bacteria.bacterium.add(new Bacteria(1f,0,0, 0,1f,0, 0,0,-1f));
-		//..eats blue
-		Bacteria.bacterium.add(new Bacteria(0,1f,0, 0,0,1f, 0,1f,0));
-		Bacteria.bacterium.add(new Bacteria(0,1f,0, 0,0,1f, 0,-1f,0));
-		//..eats red
-		Bacteria.bacterium.add(new Bacteria(0,0,1f, 1f,0,0, 1,0,0));
-		Bacteria.bacterium.add(new Bacteria(0,0,1f, 1f,0,0, -1f,0,0));*/
 	}
 	
 	public void Process(){
 		Frame.Get();
 		float fTime=0.1f;//frame time
 		//process bacteria
-		if(Frame.count%100==0){
+/*		if(Frame.count%100==0){
 			nodes.trimToSize();
-		}
+		}*/
 		int len=Bacteria.bacterium.size();
 		for(int ba=0;ba<Bacteria.bacterium.size();ba++){//}Bacteria b:Bacteria.bacterium){
 			if(!Bacteria.bacterium.get(ba).Process(fTime))
 				ba--;//b.Process(fTime);
 		}
+		
 		for(Node n:nodes){
 			len=n.objs.size();
 			for(int ba=0;ba<len;ba++){
 				for(int bb=ba+1;bb<len;bb++){
-					//collide spheres?
 					n.objs.get(ba).Collide(n.objs.get(bb),fTime);
 				}
 			}
@@ -113,9 +103,9 @@ class World {
 		gl.glScalef(1.5f,1.5f,1.5f);
 		else
 		gl.glScalef(0.8f,.8f,.8f);
-		float matAmbient[] = new float[] { 0.15f, 0.15f, .15f, 1f };
-		float o=0.6f;
-		float matDiffuse[] = new float[] { 1f, 1f, 1f, 1 };
+		float matAmbient[] = new float[] { 1f,1f,1f, 1f };
+//		float o=0.6f;
+		float matDiffuse[] = new float[] { 1f, 1f, .6f, 1 };
 		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT,matAmbient, 0);
 		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE,matDiffuse, 0);
 		if(inside)gl.glCullFace(gl.GL_FRONT);
@@ -124,15 +114,16 @@ class World {
 		
 		gl.glPopMatrix();
 //		for(Ti tri:sphere.tris){
+//*	
 		for (Node temp : nodes) {
 			if(PointInFrustum(temp.pos,1)){
 				temp.draw(gl);
 			}
-		}
-		
-//		for(Bacteria B : Bacteria.bacterium){
-//			B.draw(gl);
-//		}
+		}//*/
+/*		
+		for(Bacteria B : Bacteria.bacterium){
+			B.draw(gl);
+		}//*/
 	}
 	
 	public void ExtractFrustum(GL10 gl,float[] proj,float[] modl){
